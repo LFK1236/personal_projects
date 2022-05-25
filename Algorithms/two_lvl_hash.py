@@ -1,8 +1,20 @@
-#############################################
-# Louis Falk Knudsen                        #
-# Basic hash algorithm and hash dictionary  #
-# implementation                            #
-#############################################
+###################################################################################################
+# Author: Louis Falk Knudsen
+# Basic hash algorithm and hash dictionary implementation in Python.
+#
+# This has been a learning experience for me, both in learning
+# what hashing is and how to go about implementing it.
+# I'm still not sure I have a real grasp on the concept of hashing or hash
+# tables, but I know more than before, so I suppose it's been a success.
+#
+# As mentioned in the readme, suggestions for improvements are welcome.
+#
+# I might try this again with a different hashing algorithm and in a different language.
+# Python is very quick to get things going in, but I found myself wanting something strongly
+# typed while doing this.
+# I'd also like to edit it to support string keys, but converting from strings to numbers is a
+# bit of a mess in Python. It's doable but inelegant.
+###################################################################################################
 
 import os
 import random
