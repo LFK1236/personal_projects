@@ -50,11 +50,11 @@ namespace Sorting
         public static void Test()
         {
             Console.WriteLine("Random Quicksort:");
-            var inp = new int[] { 30, 4, 111, 4, 9, 20, -8, -17, 5, 22 };
+            var input = new int[] { 30, 4, 111, 4, 9, 20, -8, -17, 5, 22 };
             Console.Write("Before: ");
-            Program.PrintArray(inp);
+            Program.PrintArray(input);
             Console.Write("After:  ");
-            Program.PrintArray(Sort(inp, 0, inp.Length - 1));
+            Program.PrintArray(Sort(input, 0, input.Length - 1));
         }
     }
 }
