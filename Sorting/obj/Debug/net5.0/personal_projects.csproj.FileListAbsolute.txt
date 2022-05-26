@@ -1,0 +1,16 @@
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.exe
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.deps.json
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.runtimeconfig.json
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.runtimeconfig.dev.json
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.dll
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\ref\personal_projects.dll
+C:\Users\louis\repos\personal_projects\Sorting\bin\Debug\net5.0\personal_projects.pdb
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.csproj.AssemblyReference.cache
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.AssemblyInfoInputs.cache
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.AssemblyInfo.cs
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.csproj.CoreCompileInputs.cache
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.dll
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\ref\personal_projects.dll
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.pdb
+C:\Users\louis\repos\personal_projects\Sorting\obj\Debug\net5.0\personal_projects.genruntimeconfig.cache
