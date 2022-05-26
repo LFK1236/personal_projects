@@ -12,25 +12,12 @@
 # I might try this again with a different hashing algorithm and in a different language.
 # Python is very quick to get things going in, but I found myself wanting something strongly
 # typed while doing this.
-# I'd also like to edit it to support string keys, but converting from strings to numbers is a
-# bit of a mess in Python. It's doable but inelegant.
-#
-# My understanding of the utility of hash tables:
-# You could take a combination of a user's e-mail and password and generate a unique key therefrom.
-# You input all your keys into the dictionary creation function, along with some obfuscating
-# parameters.
-# Later on, you can check if the user's password and e-mail match by using the lookup function:
-# If there is something in the position in the dictionary that hashing the key with the parameters
-# produces, then the user is authenticated.
+# I'd also like to edit it to support string keys.
 ###################################################################################################
 
 import os
 import random
 import copy
-
-# Clears the terminal
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 # mod-multiply hash algorithm
 def hash(prime, table_width, a, b, key, universe):
