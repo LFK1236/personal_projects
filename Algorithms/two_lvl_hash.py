@@ -64,10 +64,7 @@ def count_list_elements(element):
 # Constructs a two-level hash table, outputting the table itself as a list of lists, and the two
 # randomly-chosen parametres for the 1st dimension of the table.
 def construct_table(input_set, table_width, prime):
-    universe_max = 0
-    for i in range(0, len(input_set)):
-        if (universe_max < input_set[i]):
-            universe_max = input_set[i]
+    universe_max = max(input_set)
     if (table_width > universe_max):
         return None
 
@@ -105,8 +102,8 @@ def construct_table(input_set, table_width, prime):
     # Construct the second level of the hash table.
     while(True):
         # The random numbers which determine, in part, the hash algorithm's output.
-        a_two = random.randint(1, prime - 1)
-        b_two = random.randint(0, prime - 1)
+        a2 = random.randint(1, prime - 1)
+        b2 = random.randint(0, prime - 1)
 
         final_hash_table = [] # list of (normal) lists.
         hash_table_second_loop = copy.deepcopy(hash_table_first_loop) # list of linked lists
@@ -126,20 +123,22 @@ def construct_table(input_set, table_width, prime):
                 for j in range(0, count):
                     key = hash_table_second_loop[i].key
                     hash_table_second_loop[i] = hash_table_second_loop[i].next
-                    level_two_index = hash(prime, depth, a_two, b_two, key, universe_max)
+                    level_two_index = hash(prime, depth, a2, b2, key, universe_max)
                     if (level_two_index == -1):
                         return None
 
                     if (final_hash_table[i] == [] or final_hash_table[i] == None
                             or final_hash_table[i][level_two_index] == None):
-                        final_hash_table[i][level_two_index] = key # Place a key in its place.
+                        # The actual entry in the hash table. We use the key to prove it works.
+                        # In a real environment putting the key here would defeat the purpose.
+                        final_hash_table[i][level_two_index] = key
                     else:
                         retry = True
 
         if (retry == False):
             break
 
-    return final_hash_table, a, b
+    return final_hash_table, a, b, a2, b2
 
 # Helper functions to show the above program working:
 def print_hash_table(table):
@@ -154,14 +153,16 @@ def print_hash_table(table):
 
         print(print_string)
 
-def hash_lookup(hash_table, key, a, b, table_width, prime, universe_max):
+# Check for the existence of an element in the hash table.
+def hash_lookup(hash_table, key, a, b, a2, b2, table_width, prime, universe_max):
     index = hash(prime, table_width, a, b, key, universe_max)
     if (index != -1):
-        for i in range(0, len(hash_table[index])):
-            if (hash_table[index][i] == key):
-                return True
+        index2 = hash(prime, len(hash_table[index]), a2, b2, key, universe_max)
+        if (hash_table[index][index2] != None):
+            return True
     return False
 
+# Just to prove it all works, including the lookup function.
 def list_lookup(hash_table, key):
     flat_hash_table = []
     for i in hash_table:
@@ -171,12 +172,12 @@ def list_lookup(hash_table, key):
 
 # Example of use:
 input = [10,15,20,25,30,35,40,45,50,55,60,65,70]
-table_width = 10 # Must be less than max(input). Size of the 1st dimension of the hash table.
+table_width = 10 # Must be less than max(input).
 prime = 89 # Must be greater or equal to max(input), and a prime number.
 
-hash_table, a, b = construct_table(input, table_width, prime)
+hash_table, a, b, a2, b2 = construct_table(input, table_width, prime)
 
 if (hash_table != None):
     print_hash_table(hash_table)
-    print(hash_lookup(hash_table, 10, a, b, table_width, prime, max(input)))
+    print(hash_lookup(hash_table, 10, a, b, a2, b2, table_width, prime, max(input)))
     print(list_lookup(hash_table, 10))
