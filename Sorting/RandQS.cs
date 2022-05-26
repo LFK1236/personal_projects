@@ -1,12 +1,14 @@
 ﻿/*
 Author: Louis Falk Knudsen
-Date: 25/05/2022
+Date: 26/05/2022
 
 A Random Quick-Sort implementation based on the short description from the introduction of
 Randomized Algorithms by Motwani and Raghavan.
 
 I still find recursive functions quite difficult to "visualise" in my head. I tend to prefer
 nested loops, when given the option.
+I have some doubts about the efficiency of this implementation. Sorting 3000 elements takes just
+short of 20 seconds on my computer, which is quite disappointing.
 */
 
 using System;
@@ -53,6 +55,7 @@ namespace Sorting
             var right = Array.Empty<Node>();
             var pivot = rand.Next(0, input.Length);
 
+            // Compares each element to the pivot, assembling two sub-arrays accordingly.
             for (int i = 0; i < input.Length; i++)
             {
                 if (i == pivot)
@@ -69,9 +72,15 @@ namespace Sorting
                 }
                 input[i].parent = input[pivot];
             }
+
+            // Recursively call the function on the left and right arrays. These will eventually
+            // be returned sorted.
             var subtree_left = Assemble_Tree(left);
             var subtree_right = Assemble_Tree(right);
             var return_array = new Node[subtree_left.Length + 1 + subtree_right.Length];
+
+            // Copy the left and right arrays, as well as the pivot, into the array which
+            // this iteration of the function will return.
             subtree_left.CopyTo(return_array, 0);
             return_array[subtree_left.Length] = input[pivot];
             subtree_right.CopyTo(return_array, subtree_left.Length + 1);
@@ -83,15 +92,18 @@ namespace Sorting
         // integers into the Nodes that the algorithm needs.
         public static int[] Sort(int[] input)
         {
+            // Convert the input array into a Node array.
             var initial_list = new Node[input.Length];
             for (int i = 0; i < input.Length; i++)
             {
                 initial_list[i] = new Node() {value = input[i]};
             }
 
+            // Begin the recursive algorithm.
             var return_node_list = Assemble_Tree(initial_list);
-            var return_array = new int[return_node_list.Length];
 
+            // Convert the Node array into an array of integers.
+            var return_array = new int[return_node_list.Length];
             for (int i = 0; i < return_node_list.Length; i++)
             {
                 return_array[i] = return_node_list[i].value;
