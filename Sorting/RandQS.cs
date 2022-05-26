@@ -2,13 +2,13 @@
 Author: Louis Falk Knudsen
 Date: 26/05/2022
 
-A Random Quick-Sort implementation based on the short description from the introduction of
-Randomized Algorithms by Motwani and Raghavan.
+A failed? attempt at implementing Random Quick-Sort based on the short description from the
+introduction of Randomized Algorithms by Motwani and Raghavan. After implementing the
+deterministic version, I see that the description wasn't complete; this one is therefore a WIP.
+It works, but is very slow.
 
 I still find recursive functions quite difficult to "visualise" in my head. I tend to prefer
 nested loops, when given the option.
-I have some doubts about the efficiency of this implementation. Sorting 3000 elements takes just
-short of 20 seconds on my computer, which is quite disappointing.
 */
 
 using System;
@@ -23,13 +23,12 @@ namespace Sorting
         class Node
         {
             public int value;
-            public Node parent = null;
             public Node[] left = null;
             public Node[] right = null;
         }
 
         // Adds a new Node element to the end of a Node array.
-        static Node[] Append(Node[] input, Node new_node)
+        private static Node[] Append(Node[] input, Node new_node)
         {
             var output = new Node[input.Length + 1];
             for (int i = 0; i < input.Length; i++)
@@ -43,17 +42,17 @@ namespace Sorting
         // The heart of the algorithm. Recursively splits the array into two parts
         // until arrays have only one element, after which it returns up,
         // assembling a final sorted array.
-        static Node[] Assemble_Tree(Node[] input)
+        private static Node[] Assemble_Tree(Node[] input)
         {
             if (input.Length == 0)
             {
                 return input;
             }
             var rand = new Random();
-
-            var left = Array.Empty<Node>();
-            var right = Array.Empty<Node>();
             var pivot = rand.Next(0, input.Length);
+
+            input[pivot].left = Array.Empty<Node>();
+            input[pivot].right = Array.Empty<Node>();
 
             // Compares each element to the pivot, assembling two sub-arrays accordingly.
             for (int i = 0; i < input.Length; i++)
@@ -64,19 +63,18 @@ namespace Sorting
                 }
                 else if (input[i].value < input[pivot].value)
                 {
-                    left = Append(left, input[i]);
+                    input[pivot].left = Append(input[pivot].left, input[i]);
                 }
                 else
                 {
-                    right = Append(right, input[i]);
+                    input[pivot].right = Append(input[pivot].right, input[i]);
                 }
-                input[i].parent = input[pivot];
             }
 
             // Recursively call the function on the left and right arrays. These will eventually
             // be returned sorted.
-            var subtree_left = Assemble_Tree(left);
-            var subtree_right = Assemble_Tree(right);
+            var subtree_left = Assemble_Tree(input[pivot].left);
+            var subtree_right = Assemble_Tree(input[pivot].right);
             var return_array = new Node[subtree_left.Length + 1 + subtree_right.Length];
 
             // Copy the left and right arrays, as well as the pivot, into the array which
@@ -111,20 +109,14 @@ namespace Sorting
             return return_array;
         }
 
-        static void PrintArray(int[] input)
+        public static void Test()
         {
-            for (int i = 0; i < input.Length; i++)
-            {
-                Console.Write(input[i] + " ");
-            }
-            Console.WriteLine();
-        }
-
-        static void Main(string[] args)
-        {
-            var inp = new int[] { 30, 4, 111, 4, 9, 20, 8, 17, 5, 22 };
-            PrintArray(inp);
-            PrintArray(Sort(inp));
+            Console.WriteLine("RandQS:");
+            var inp = new int[] { 30, 4, 111, 4, 9, 20, -8, -17, 5, 22 };
+            Console.Write("Before: ");
+            Program.PrintArray(inp);
+            Console.Write("After:  ");
+            Program.PrintArray(Sort(inp));
         }
     }
 }

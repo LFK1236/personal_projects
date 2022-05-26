@@ -4,8 +4,10 @@ using NUnit.Framework;
 
 namespace Sorting_Tests
 {
+    [TestFixture]
     public class Test_RandQS
     {
+
         [Test]
         public void Test_RandQS_Presorted()
         {
@@ -69,6 +71,7 @@ namespace Sorting_Tests
             Assert.AreEqual(expected, actual);
         }
 
+        /*
         [Test]
         public void Test_RandQS_Large_Input()
         {
@@ -83,5 +86,6 @@ namespace Sorting_Tests
             var actual = RandQS.Sort(input);
             Assert.AreEqual(expected, actual);
         }
+        */
     }
 }
