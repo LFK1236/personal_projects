@@ -24,6 +24,7 @@ namespace Sorting
         {
             RandQS.Test();
             Quicksort.Test();
+            Random_Quicksort.Test();
         }
     }
 }
