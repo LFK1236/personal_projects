@@ -14,6 +14,14 @@
 # typed while doing this.
 # I'd also like to edit it to support string keys, but converting from strings to numbers is a
 # bit of a mess in Python. It's doable but inelegant.
+#
+# My understanding of the utility of hash tables:
+# You could take a combination of a user's e-mail and password and generate a unique key therefrom.
+# You input all your keys into the dictionary creation function, along with some obfuscating
+# parameters.
+# Later on, you can check if the user's password and e-mail match by using the lookup function:
+# If there is something in the position in the dictionary that hashing the key with the parameters
+# produces, then the user is authenticated.
 ###################################################################################################
 
 import os
@@ -25,11 +33,12 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # mod-multiply hash algorithm
-# Somewhere amongst the error handling is the actual thing.
 def hash(prime, table_width, a, b, key, universe):
     if (a > 0 and a < (prime - 1) and b >= 0 and b < (prime - 1) and
             prime >= universe and table_width < universe):
-        hash_result = ((a * key + b) % prime) % table_width
+
+        hash_result = ((a * key + b) % prime) % table_width # the algorithm itself
+
         if (hash_result <= table_width and hash_result >= 0):
             return hash_result
     return -1
@@ -90,7 +99,7 @@ def construct_table(input_set, table_width, prime):
                 final_list_element(
                     hash_table_first_loop[level_one_index]).next = hashed_element(input_set[i], None)
 
-        # Count C, which must be less than table_width to proceed. Otherwise, try again with new a and b.
+        # Count collisions, which must be less than table_width to proceed. Otherwise, try again with new a and b.
         collisions = 0
         for i in range(0,table_width):
             count = count_list_elements(hash_table_first_loop[i])
