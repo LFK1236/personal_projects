@@ -13,18 +13,8 @@ using System;
 
 namespace Sorting
 {
-    class RandQS
+    public class RandQS
     {
-        // Helper function for printing the final output array.
-        static void PrintArray(Node[] input)
-        {
-            for (int i = 0; i < input.Length; i++)
-            {
-                Console.Write(input[i].value + " ");
-            }
-            Console.WriteLine();
-        }
-
         // The individual entry. On the left are elements that have smaller values,
         // on the right are the remaining. At the end, each array will have only
         // one element.
@@ -91,7 +81,7 @@ namespace Sorting
 
         // The entry point for the algorithm, it converts the input array of
         // integers into the Nodes that the algorithm needs.
-        static Node[] Rand_Quick_Sort(int[] input)
+        public static int[] Sort(int[] input)
         {
             var initial_list = new Node[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -99,13 +89,30 @@ namespace Sorting
                 initial_list[i] = new Node() {value = input[i]};
             }
 
-            return Assemble_Tree(initial_list);
+            var return_node_list = Assemble_Tree(initial_list);
+            var return_array = new int[return_node_list.Length];
+
+            for (int i = 0; i < return_node_list.Length; i++)
+            {
+                return_array[i] = return_node_list[i].value;
+            }
+            return return_array;
+        }
+
+        static void PrintArray(int[] input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                Console.Write(input[i] + " ");
+            }
+            Console.WriteLine();
         }
 
         static void Main(string[] args)
         {
             var inp = new int[] { 30, 4, 111, 4, 9, 20, 8, 17, 5, 22 };
-            PrintArray(Rand_Quick_Sort(inp));
+            PrintArray(inp);
+            PrintArray(Sort(inp));
         }
     }
 }

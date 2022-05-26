@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\louis\\repos\\personal_projects\\sorting\\Sorting.csproj",
+      "projectUniqueName": "C:\\Users\\louis\\repos\\personal_projects\\Sorting\\Sorting.csproj",
       "projectName": "Sorting",
-      "projectPath": "C:\\Users\\louis\\repos\\personal_projects\\sorting\\Sorting.csproj",
+      "projectPath": "C:\\Users\\louis\\repos\\personal_projects\\Sorting\\Sorting.csproj",
       "packagesPath": "C:\\Users\\louis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\louis\\repos\\personal_projects\\sorting\\obj\\",
+      "outputPath": "C:\\Users\\louis\\repos\\personal_projects\\Sorting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
