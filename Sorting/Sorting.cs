@@ -11,10 +11,11 @@ nested loops, when given the option.
 
 using System;
 
-namespace personal_projects.Sorting
+namespace Sorting
 {
     class RandQS
     {
+        // Helper function for printing the final output array.
         static void PrintArray(Node[] input)
         {
             for (int i = 0; i < input.Length; i++)
@@ -24,7 +25,9 @@ namespace personal_projects.Sorting
             Console.WriteLine();
         }
 
-        // The individual entries.
+        // The individual entry. On the left are elements that have smaller values,
+        // on the right are the remaining. At the end, each array will have only
+        // one element.
         class Node
         {
             public int value;
@@ -33,6 +36,7 @@ namespace personal_projects.Sorting
             public Node[] right = null;
         }
 
+        // Adds a new Node element to the end of a Node array.
         static Node[] Append(Node[] input, Node new_node)
         {
             var output = new Node[input.Length + 1];
@@ -44,6 +48,9 @@ namespace personal_projects.Sorting
             return output;
         }
 
+        // The heart of the algorithm. Recursively splits the array into two parts
+        // until arrays have only one element, after which it returns up,
+        // assembling a final sorted array.
         static Node[] Assemble_Tree(Node[] input)
         {
             if (input.Length == 0)
@@ -72,16 +79,18 @@ namespace personal_projects.Sorting
                 }
                 input[i].parent = input[pivot];
             }
-            var l2 = Assemble_Tree(left);
-            var r2 = Assemble_Tree(right);
-            var return_array = new Node[l2.Length + 1 + r2.Length];
-            l2.CopyTo(return_array, 0);
-            return_array[l2.Length] = input[pivot];
-            r2.CopyTo(return_array, l2.Length + 1);
+            var subtree_left = Assemble_Tree(left);
+            var subtree_right = Assemble_Tree(right);
+            var return_array = new Node[subtree_left.Length + 1 + subtree_right.Length];
+            subtree_left.CopyTo(return_array, 0);
+            return_array[subtree_left.Length] = input[pivot];
+            subtree_right.CopyTo(return_array, subtree_left.Length + 1);
 
             return return_array;
         }
 
+        // The entry point for the algorithm, it converts the input array of
+        // integers into the Nodes that the algorithm needs.
         static Node[] Rand_Quick_Sort(int[] input)
         {
             var initial_list = new Node[input.Length];
