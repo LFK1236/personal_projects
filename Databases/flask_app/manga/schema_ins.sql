@@ -20,3 +20,13 @@ VALUES
     ('Dragonball', '2003', 2),
     ('Dragonball', '2003', 3),
     ('One Piece', '2003', 1);
+
+INSERT INTO Genres(genre)
+VALUES
+    ('Adventure'), ('Action'), ('Martial Arts'), ('Wholesome'), ('Slice of Life'), ('Isekai'), ('Horror');
+
+INSERT INTO Genre_Of(genre, series, series_year)
+VALUES
+    ('Adventure', 'Dragonball', '2003'), ('Action', 'Dragonball', '2003'), ('Martial Arts', 'Dragonball', '2003'),
+    ('Adventure', 'One Piece', '2003'), ('Action', 'One Piece', '2003')
+;

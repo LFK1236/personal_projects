@@ -8,11 +8,10 @@ class Main():
 
 class Volume(tuple):
     def __init__(self, volume_data):
-        self.id = volume_data[0]
-        self.name = volume_data[1]
-        self.series_year = volume_data[2]
-        self.author = volume_data[3]
-        self.entry = volume_data[4]
+        self.name = volume_data[0]
+        self.series_year = volume_data[1]
+        self.author = volume_data[2]
+        self.entry = volume_data[3]
 
 class Series(tuple):
     def __init__(self, series_data):
@@ -27,7 +26,7 @@ class Author(tuple):
 def select_Volumes():
     cursor = connection.cursor()
     sql = """
-    SELECT id,Volumes.name,Volumes.series_year,Authorship.author,entry FROM Volumes LEFT JOIN Authorship ON Volumes.name=Authorship.series
+    SELECT Volumes.name,Volumes.series_year,Authorship.author,entry FROM Volumes LEFT JOIN Authorship ON Volumes.name=Authorship.series
     """
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -47,13 +46,13 @@ def add_Volume(user_input):
     connection.commit()
     cursor.close()
 
-def remove_Volume(id):
+def remove_Volume(input):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
     DELETE FROM Volumes
-    WHERE id=%s
+    WHERE name=%s AND series_year=%s AND entry=%s
     """)
-    cursor.execute(user_sql, (id,))
+    cursor.execute(user_sql, (input[0], input[1], input[2]))
     connection.commit()
     cursor.close()
 
