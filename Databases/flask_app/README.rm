@@ -2,11 +2,8 @@
 
 ## Background
 Got bronchitis, made this.
-It's a Flask application (i.e. a local website) which manages a PostgreSQL database of manga (or really any type of comic book).
-I don't have a huge collection, but I do enjoy manga. I read "I Think Our Son Is Gay" by Okura recently, a very sweet little slice-of-life
-story about a mother who's doing her best to support her closeted gay son through the ups and downs of adolescence, made ever harder by the
-conservative, heteronormative attitude of Japan, and by the homophobia he hears from classmates, and even from his
-well-meaning but clueless father. I also started reading Berserk, a dark (very dark) horror fantasy series.
+It's a Flask application (i.e. a local website, zero JavaScript) which manages a PostgreSQL database of manga (or really any type of comic book).
+I don't have a huge collection, but I do have a fair few. Excel is great, but... leaves something to be desired. Lo, HTML, Python, and SQL!
 
 ## Running it yourself
 To run it yourself, you'll need Flask, Flask_bcrypt, Flask_login, Flask_wtf (yes, apparently so), wtforms, PostgreSQL, Python and

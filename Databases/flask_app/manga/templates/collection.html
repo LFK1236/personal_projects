@@ -3,36 +3,50 @@
 <div class="content-section">
     <p>Full Collection:</p>
     <table class="table table-striped">
-      <thead>
+        <thead>
         <tr>
-          <th scope="col">Series Name</th>
-          <th scope="col">Entry</th>
-          <th scope="col">Author</th>
+            <th scope="col">Series</th>
+            <th scope="col">Entry</th>
+            <th scope="col">Author</th>
         </tr>
-      </thead>
-      <tbody>  
-      {% for volume in volumes %}
+        </thead>
+        <tbody>  
+        {% for volume in volumes %}
         <tr>
-          <td>{{volume.name}}</td>
-          <td>{{volume.entry}}</td>
-          <td>{{volume.author}}</td>
-          <td>
+            <td>{{volume.name}} ({{volume.series_year}})</td>
+            <td>{{volume.entry}}</td>
+            <td>{{volume.author}}</td>
+            <td>
             <form action="/collection/delete" method="post">
                 <input type="hidden" value="{{volume.id}}" name="volume_id">
                 <input type="submit" value="X">
             </form>
-          </td>
+            </td>
         </tr>
-      {% endfor %}
-      <form action="/collection/add" method="post">
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br><br><br>
+    <p>Add volume:</p>
+    <table class="table table-striped">
+    <thead>
         <tr>
-          <td><input type="text" name="name" value="" class="wide"></td>
-          <td><input type="number" name="entry" value="" class="narrow"></td>
-          <td><input type="text" name="author" value="" class="wide"></td>
-          <td><input type="submit" value="Add volume"></td>
+            <th scope="col">Series Name</th>
+            <th scope="col">Series Year</th>
+            <th scope="col">Entry</th>
         </tr>
-        </form>
-      </tbody>
+    </thead>
+    <tbody>
+    <form action="/collection/add" method="post">
+        <tr>
+            <td><input type="text" name="name" value="" class="wide"></td>
+            <td><input type="text" name="series_year" value="" class="narrow"></td>
+            <td><input type="number" name="entry" value="1" class="narrow"></td>
+            <td><input type="submit" value="Add volume"></td>
+        </tr>
+    </form>
+    </tbody>
     </table>
 
     <p>Add multiple:</p>
@@ -40,7 +54,7 @@
         <thead>
             <tr>
                 <th scope="col">Series Name</th>
-                <th scope="col">Author</th>
+                <th scope="col">Series Year</th>
                 <th scope="col">First entry</th>
                 <th scope="col">Latest entry</th>
             </tr>
@@ -49,9 +63,9 @@
             <form action="/collection/add/multiple" method="post">
                 <tr>
                     <td><input type="text" name="name" value="" class="wide"></td>
-                    <td><input type="text" name="author" value="" class="wide"></td>
+                    <td><input type="text" name="series_year" value="" class="narrow"></td>
                     <td><input type="number" name="start_entry" value="1" class="narrow"></td>
-                    <td><input type="number" name="entries" value="1" class="narrow"></td>
+                    <td><input type="number" name="last_entry" value="1" class="narrow"></td>
                     <td><input type="submit" value="Add volumes"></td>
                 </tr>
             </form>

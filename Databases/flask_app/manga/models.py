@@ -10,7 +10,7 @@ class Volume(tuple):
     def __init__(self, volume_data):
         self.id = volume_data[0]
         self.name = volume_data[1]
-        self.publish_date = volume_data[2]
+        self.series_year = volume_data[2]
         self.author = volume_data[3]
         self.entry = volume_data[4]
 
@@ -18,6 +18,7 @@ class Series(tuple):
     def __init__(self, series_data):
         self.name = series_data[0]
         self.author = series_data[1]
+        self.series_year = series_data[2]
 
 class Author(tuple):
     def __init__(self, author_data):
@@ -26,7 +27,7 @@ class Author(tuple):
 def select_Volumes():
     cursor = connection.cursor()
     sql = """
-    SELECT * FROM Volumes
+    SELECT id,Volumes.name,Volumes.series_year,Authorship.author,entry FROM Volumes LEFT JOIN Authorship ON Volumes.name=Authorship.series
     """
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -36,13 +37,13 @@ def select_Volumes():
         volumes.append(Volume(vol))
     return volumes
 
-def add_Volume(input_data):
+def add_Volume(user_input):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    INSERT INTO Volumes(name, entry, author)
+    INSERT INTO Volumes(name, entry, series_year)
     VALUES(%s, %s, %s)
     """)
-    cursor.execute(user_sql, (input_data[0], int(input_data[1]), input_data[2]))
+    cursor.execute(user_sql, (user_input[0], int(user_input[1]), user_input[2]))
     connection.commit()
     cursor.close()
 
@@ -59,7 +60,8 @@ def remove_Volume(id):
 def select_Series():
     cursor = connection.cursor()
     sql = """
-    SELECT DISTINCT name,author FROM Volumes
+    SELECT Series.name,Authorship.author,Series.series_year FROM Series
+    LEFT JOIN Authorship ON Series.name = Authorship.series
     """
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -68,6 +70,16 @@ def select_Series():
     for ser in results:
         series.append(Series(ser))
     return series
+
+def add_Series(user_input):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Series(name, series_year)
+    VALUES(%s, %s)
+    """)
+    cursor.execute(user_sql, (user_input[0], user_input[1]))
+    connection.commit()
+    cursor.close()
 
 def select_specific_Authors(name):
     cursor = connection.cursor()

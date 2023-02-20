@@ -12,12 +12,31 @@
         <tbody>
             {% for s in series %}
             <tr>
-                <td>{{s.name}}</td>
+                <td>{{s.name}} ({{s.series_year}})</td>
                 <td>{{s.author}}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <p>Add series:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Year</th>
+            </tr>
+        </thead>
+        <tbody>
+          <form action="/series/add" method="post">
+            <tr>
+                <td><input type="text" name="name" value="" class="wide"></td>
+                <td><input type="text" name="series_year" value="" class="narrow"></td>
+                <td><input type="submit" value="Add series"></td>
+            </tr>
+        </form>
+        </tbody>
+        </table>
 
 
     <br><br><a href="/collection">See full collection</a><br><a href="/">Back to splash page</a>

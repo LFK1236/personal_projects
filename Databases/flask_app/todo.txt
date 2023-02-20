@@ -11,4 +11,10 @@ Edit information for entire series.
 
 Make table for series which has name as primary key, the volumes table then references that instead of the other way around.
 
-Add "edition" information for series.
+In Authors section of series and collection, show all authors by grouping? series join authorship on whatever, grouping by yadayada
+
+Stored procedures instead of if/else statements
+
+Fallbacks in case of incorrect user input
+
+Sanitise user input somehow?
