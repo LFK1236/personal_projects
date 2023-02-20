@@ -1,0 +1,25 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Series:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Series Name</th>
+                <th scope="col">Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in series %}
+            <tr>
+                <td>{{s.name}}</td>
+                <td>{{s.author}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <br><br><a href="/collection">See full collection</a><br><a href="/">Back to splash page</a>
+</div>
+{% endblock content %}

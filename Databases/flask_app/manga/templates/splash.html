@@ -1,0 +1,12 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Please select where to go:</p>
+    <table class="table table-striped">
+      <tbody>
+        <td><input type="button" value="Full Collection" onclick="window.location.href='/collection'"></td>
+        <td><input type="button" value="Series" onclick="window.location.href='/series'"></td>
+      </tbody>
+    </table>
+</div>
+{% endblock content %}

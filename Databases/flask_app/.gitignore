@@ -1,0 +1,4 @@
+*.txt
+!todo.txt
+*.bat
+__pycache__
