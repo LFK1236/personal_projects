@@ -32,5 +32,7 @@ def add_multiple():
 @Collection_Manga.route('/collection/delete', methods=['POST'])
 def delete():
     if request.method == 'POST':
-        remove_Volume([request.form['volume_id']][0])
+        volume_info = [request.form['name'], request.form['series_year'], request.form.get('entry', type=int)]
+        if volume_info[2] != None:
+            remove_Volume(volume_info)
         return redirect('/collection')
