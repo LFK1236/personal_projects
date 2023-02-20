@@ -59,7 +59,7 @@ def remove_Volume(input):
 def select_Series():
     cursor = connection.cursor()
     sql = """
-    SELECT Series.name,Authorship.author,Series.series_year FROM Series
+    SELECT Series.name, Authorship.author, Series.series_year FROM Series
     LEFT JOIN Authorship ON Series.name = Authorship.series
     """
     cursor.execute(sql)
