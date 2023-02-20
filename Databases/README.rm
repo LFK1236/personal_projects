@@ -24,7 +24,8 @@ $ \q
 $ cd manga
 $ psql -U postgres -d manga
 $ \i schema.sql
-Feel free to type in any SQL queries now to test that the database has some default values in them.
+(Optionally) To enter some default values that I designed, type
+$ \i schema_ins.sql
 $ \q
 
 Now to run the application itself. In the same terminal, go back up to the flask_app folder, and then:
