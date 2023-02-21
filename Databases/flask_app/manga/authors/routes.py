@@ -13,7 +13,7 @@ def add():
     if request.method == 'POST':
         author_info = [request.form['name']]
         if author_info[0] != None:
-            add_Author(author_info)
+            add_Author(author_info[0])
     return redirect('/authors')
 
 @Authors.route('/authors/delete', methods=['GET', 'POST'])

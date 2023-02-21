@@ -20,10 +20,14 @@ CREATE TABLE IF NOT EXISTS Authorship(
     series_year char(4),
     CONSTRAINT fk_author
         FOREIGN KEY (author)
-        REFERENCES Authors(name),
+        REFERENCES Authors(name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     CONSTRAINT fk_series
         FOREIGN KEY (series, series_year)
         REFERENCES Series(name, series_year)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Volumes(
@@ -34,7 +38,9 @@ CREATE TABLE IF NOT EXISTS Volumes(
     read_status boolean DEFAULT FALSE,
     CONSTRAINT fk_series
         FOREIGN KEY (name, series_year)
-        REFERENCES Series(name, series_year),
+        REFERENCES Series(name, series_year)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     PRIMARY KEY (entry, name, series_year)
 );
 
@@ -49,4 +55,6 @@ CREATE TABLE IF NOT EXISTS Genre_Of(
     CONSTRAINT fk_series
         FOREIGN KEY (series, series_year)
         REFERENCES Series(name, series_year)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
