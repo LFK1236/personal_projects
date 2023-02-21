@@ -1,23 +1,20 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
-    <p>Series:</p>
+    <p>Authors:</p>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Series Name</th>
                 <th scope="col">Author</th>
             </tr>
         </thead>
         <tbody>
-            {% for s in series %}
+            {% for a in authors %}
             <tr>
-                <td>{{s.name}} ({{s.series_year}})</td>
-                <td>{{s.author}}</td>
+                <td>{{a.name}}</td>
                 <td>
-                    <form action="/series/delete" method="post">
-                        <input type="hidden" value="{{s.name}}" name="name">
-                        <input type="hidden" value="{{s.series_year}}" name="series_year">
+                    <form action="/authors/delete" method="post">
+                        <input type="hidden" value="{{a.name}}" name="name">
                         <input type="submit" value="X">
                     </form>
                 </td>
@@ -26,20 +23,18 @@
         </tbody>
     </table>
 
-    <p>Add series:</p>
+    <p>Add author:</p>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Year</th>
             </tr>
         </thead>
         <tbody>
-          <form action="/series/add" method="post">
+          <form action="/authors/add" method="post">
             <tr>
                 <td><input type="text" name="name" value="" class="wide"></td>
-                <td><input type="text" name="series_year" value="" class="narrow"></td>
-                <td><input type="submit" value="Add series"></td>
+                <td><input type="submit" value="Add author"></td>
             </tr>
         </form>
         </tbody>

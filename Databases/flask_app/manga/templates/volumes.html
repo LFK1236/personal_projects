@@ -10,14 +10,14 @@
             <th scope="col">Author</th>
         </tr>
         </thead>
-        <tbody>  
+        <tbody>
         {% for volume in volumes %}
         <tr>
             <td>{{volume.name}} ({{volume.series_year}})</td>
             <td>{{volume.entry}}</td>
             <td>{{volume.author}}</td>
             <td>
-            <form action="/collection/delete" method="post">
+            <form action="/volumes/delete" method="post">
                 <input type="hidden" value="{{volume.name}}" name="name">
                 <input type="hidden" value="{{volume.series_year}}" name="series_year">
                 <input type="hidden" value="{{volume.entry}}" name="entry">
@@ -40,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-    <form action="/collection/add" method="post">
+    <form action="/volumes/add" method="post">
         <tr>
             <td><input type="text" name="name" value="" class="wide"></td>
             <td><input type="text" name="series_year" value="" class="narrow"></td>
@@ -62,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            <form action="/collection/add/multiple" method="post">
+            <form action="/volumes/add/multiple" method="post">
                 <tr>
                     <td><input type="text" name="name" value="" class="wide"></td>
                     <td><input type="text" name="series_year" value="" class="narrow"></td>

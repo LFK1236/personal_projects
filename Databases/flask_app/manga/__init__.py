@@ -5,11 +5,14 @@ app = Flask(__name__)
 database = "dbname='mangadb' user='postgres' host='127.0.0.1' password = '123'"
 connection = psycopg2.connect(database)
 
-from manga.collection_manga.routes import Collection_Manga
-app.register_blueprint(Collection_Manga)
+from manga.volumes.routes import Volumes
+app.register_blueprint(Volumes)
 
 from manga.splash.routes import Splash
 app.register_blueprint(Splash)
 
-from manga.series_manga.routes import Series_Manga
-app.register_blueprint(Series_Manga)
+from manga.series.routes import Series
+app.register_blueprint(Series)
+
+from manga.authors.routes import Authors
+app.register_blueprint(Authors)

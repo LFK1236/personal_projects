@@ -26,7 +26,8 @@ class Author(tuple):
 def select_Volumes():
     cursor = connection.cursor()
     sql = """
-    SELECT Volumes.name,Volumes.series_year,Authorship.author,entry FROM Volumes LEFT JOIN Authorship ON Volumes.name=Authorship.series
+    SELECT Volumes.name,Volumes.series_year,Authorship.author,entry
+    FROM Volumes LEFT JOIN Authorship ON Volumes.name=Authorship.series
     """
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -101,5 +102,38 @@ def add_Author(name):
     VALUES(%s)
     """)
     cursor.execute(user_sql, (name,))
+    connection.commit()
+    cursor.close()
+
+def select_Authors():
+    cursor = connection.cursor()
+    sql = """
+    SELECT name FROM Authors
+    """
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    authors = []
+    for author in results:
+        authors.append(Author(author))
+    return authors
+
+def delete_Author(name):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Authors
+    WHERE name=%s
+    """)
+    cursor.execute(user_sql, (name,))
+    connection.commit()
+    cursor.close()
+
+def delete_Series(input):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Series
+    WHERE name=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (input[0], input[1]))
     connection.commit()
     cursor.close()
