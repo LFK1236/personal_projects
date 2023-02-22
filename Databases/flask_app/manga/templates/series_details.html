@@ -1,0 +1,39 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p><bf>{{series.name}} ({{series.series_year}}):</bf></p>
+    <table class="table table-striped">
+        <thead>
+            <td>Author(s)</td>
+        </thead>
+        <tbody>
+            <td>
+                {% for n in names %}
+                    {{n.name}}<br>
+                {% endfor %}
+            </td>
+        </tbody>
+    </table>
+    <p>Edition: {{series.edition}}</p>
+    <p>Language: {{series.language}}</p>
+    <p>Rating: {{series.rating}}</p>
+    <p>Demographic: {{series.demographic}}</p>
+
+    <p>Add author to series:</p>
+    <table class="table table-striped">
+        <tbody>
+          <form action="/series/connect" method="post">
+            <tr>
+                <input type="hidden" name="name", value="{{series.name}}">
+                <input type="hidden" name="series_year" value="{{series.series_year}}">
+                <td><input type="text" name="author_name" value="" class="wide"></td>
+                <td><input type="submit" value="Add author"></td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+    
+
+    <br><br><a href="/series">Return to series</a><br><a href="/">Back to splash page</a>
+</div>
+{% endblock content %}
