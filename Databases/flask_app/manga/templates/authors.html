@@ -13,8 +13,7 @@
             <tr>
                 <td>{{a.name}}</td>
                 <td>
-                    <form action="/authors/details" method="post">
-                        <input type="hidden" value="{{a.name}}" name="name">
+                    <form action="/authors/details/{{a.name}}" method="post">
                         <input type="submit" value="...">
                     </form>
                     <form action="/authors/delete" method="post">

@@ -18,7 +18,7 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <form action="/series/details" method="post">
+                    <form action="/series/details/{{s.name}}/{{s.series_year}}" method="post">
                         <input type="hidden" value="{{s.name}}" name="name">
                         <input type="hidden" value="{{s.series_year}}" name="series_year">
                         <input type="submit" value="...">
@@ -27,6 +27,7 @@
                         <input type="hidden" value="{{s.name}}" name="series_name">
                         <input type="hidden" value="{{s.series_year}}" name="series_year">
                         <input type="hidden" value="{{author}}" name="author_name">
+                        <input type="hidden" value="/authors/details/{{author}}" name="from">
                         <input type="submit" value="X">
                     </form>
                 </td>
@@ -49,6 +50,7 @@
                 <td><input type="text" name="name" value="" class="wide"></td>
                 <td><input type="text" name="series_year" value="" class="narrow"></td>
                 <input type="hidden" name="author_name", value="{{author}}">
+                <input type="hidden" value="/authors/details/{{author}}" name="from">
                 <td><input type="submit" value="Add series"></td>
             </tr>
         </form>

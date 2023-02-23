@@ -24,8 +24,8 @@ def delete():
         delete_Series(volume_info)
         return redirect('/series')
 
-@Series.route('/series/details', methods=['GET', 'POST'])
-def details():
+@Series.route('/series/details/<string:series_name>/<string:series_year>', methods=['GET', 'POST'])
+def details(series_name, series_year):
     if request.method == 'POST':
         series_info = [request.form['name'], request.form['series_year']]
         series = select_Specific_Series(series_info)
@@ -37,15 +37,17 @@ def details():
 def connect_author():
     if request.method == 'POST':
         authorship = [request.form['name'], request.form['series_year'], request.form['author_name']]
+        from_url = request.form['from']
         add_Authorship(authorship)
-    return redirect('/series')
+    return redirect(from_url)
 
 @Series.route('/series/connect/genre', methods=['POST'])
 def connect_genre():
     if request.method == 'POST':
         genre_connection = [request.form['name'], request.form['series_year'], request.form['genre_name']]
+        from_url = request.form['from']
         add_Genre_Connection(genre_connection)
-    return redirect('/series')
+    return redirect(from_url)
 
 @Series.route('/series/genre:<string:genre>', methods=['GET', 'POST'])
 def series_by_genre(genre):
@@ -56,13 +58,14 @@ def series_by_genre(genre):
 def disconnect_genre():
     if request.method == 'POST':
         genre_info = [request.form['series_name'], request.form['series_year'], request.form['genre_name']]
+        from_url = request.form['from']
         delete_Genre_Connection(genre_info)
-    return redirect('/series')
+    return redirect(from_url)
 
 @Series.route('/series/disconnect/author', methods=['POST'])
 def disconnect_author():
     if request.method == 'POST':
         authorship = [request.form['series_name'], request.form['series_year'], request.form['author_name']]
-        print(authorship)
+        from_url = request.form['from']
         delete_Author_Connection(authorship)
-    return redirect('/series')
+    return redirect(from_url)

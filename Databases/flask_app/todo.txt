@@ -5,14 +5,6 @@ Buttons to filter based on user-defined criteria.
 Allow user to optionally input language when creating volume.
 Change default language.
 
-Edit volume information.
-Edit author information.
-Edit information for entire series.
-
-Make table for series which has name as primary key, the volumes table then references that instead of the other way around.
-
-In Authors section of series and collection, show all authors by grouping? series join authorship on whatever, grouping by yadayada
-
 Stored procedures instead of if/else statements
 
 Fallbacks in case of incorrect user input
