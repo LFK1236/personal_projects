@@ -7,29 +7,70 @@
             <td>Author(s)</td>
         </thead>
         <tbody>
-            <td>
-                {% for n in names %}
-                    {{n.name}}<br>
-                {% endfor %}
-            </td>
+            {% for n in names %}
+            <tr>
+                <td>{{n.name}}</td>
+                <td>
+                    <form action="/authors/details" method="post">
+                        <input type="hidden" value="{{n.name}}" name="name">
+                        <input type="submit" value="...">
+                    </form>
+                    <form action="/series/disconnect/author" method="post">
+                        <input type="hidden" value="{{series.name}}" name="series_name">
+                        <input type="hidden" value="{{series.series_year}}" name="series_year">
+                        <input type="hidden" value="{{n.name}}" name="author_name">
+                        <input type="submit" value="X">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <p>Edition: {{series.edition}}</p>
     <p>Language: {{series.language}}</p>
     <p>Rating: {{series.rating}}</p>
     <p>Demographic: {{series.demographic}}</p>
-
-    <p>Add author to series:</p>
+    <p>Genres:</p>
     <table class="table table-striped">
         <tbody>
-          <form action="/series/connect" method="post">
+            {% for g in genres %}
+            <tr>
+                <td>{{g}}</td>
+                <td>
+                    <form action="/series/genre:{{g}}" method="post">
+                        <input type="submit" value="...">
+                    </form>
+                    <form action="/series/disconnect/genre" method="post">
+                        <input type="hidden" value="{{series.name}}" name="series_name">
+                        <input type="hidden" value="{{series.series_year}}" name="series_year">
+                        <input type="hidden" value="{{g}}" name="genre_name">
+                        <input type="submit" value="X">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Add details to series (author/genre already exist in database):</p>
+    <table class="table table-striped">
+        <tbody>
+            <form action="/series/connect/author" method="post">
             <tr>
                 <input type="hidden" name="name", value="{{series.name}}">
                 <input type="hidden" name="series_year" value="{{series.series_year}}">
                 <td><input type="text" name="author_name" value="" class="wide"></td>
                 <td><input type="submit" value="Add author"></td>
             </tr>
-        </form>
+            </form>
+            <form action="/series/connect/genre" method="post">
+                <tr>
+                    <input type="hidden" name="name", value="{{series.name}}">
+                    <input type="hidden" name="series_year" value="{{series.series_year}}">
+                    <td><input type="text" name="genre_name" value="" class="wide"></td>
+                    <td><input type="submit" value="Add genre"></td>
+                </tr>
+            </form>
         </tbody>
     </table>
     

@@ -29,6 +29,7 @@ def details():
     if request.method == 'POST':
         author = request.form['name']
         series = select_Series_by_Author(author)
+        print(author)
         return render_template('authors_details.html', title='Author Details', author=author, series=series)
 
 @Authors.route('/authors/connect', methods=['POST'])
