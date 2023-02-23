@@ -16,3 +16,6 @@ app.register_blueprint(Series)
 
 from manga.authors.routes import Authors
 app.register_blueprint(Authors)
+
+from manga.genres.routes import Genres
+app.register_blueprint(Genres)

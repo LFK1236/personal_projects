@@ -1,5 +1,6 @@
 from flask import render_template, url_for, redirect, Blueprint, request
 from manga.models import select_Series, add_Series, delete_Series, select_Specific_Series, select_Authors_of_Series, add_Authorship
+from manga.models import select_Series_by_Genre
 
 Series = Blueprint('Manga Series', __name__)
 
@@ -37,3 +38,8 @@ def connect():
         authorship = [request.form['name'], request.form['series_year'], request.form['author_name']]
         add_Authorship(authorship)
     return redirect('/series')
+
+@Series.route('/series/genre:<string:genre>', methods=['GET', 'POST'])
+def series_by_genre(genre):
+    series = select_Series_by_Genre(genre)
+    return render_template('series_by_genre.html', title='Series', series=series, genre=genre)

@@ -268,3 +268,66 @@ def select_Series():
 
     cursor.close()
     return final_results
+
+def select_Genres():
+    cursor = connection.cursor()
+    sql = """
+    SELECT genre FROM Genres
+    ORDER BY genre
+    """
+    cursor.execute(sql)
+    genres = cursor.fetchall()
+    cursor.close()
+    genre_list = []
+    for g in genres:
+        genre_list.append(g)
+    return genre_list
+
+def add_Genre(name):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Genres(genre)
+    VALUES(%s) 
+    """)
+    cursor.execute(user_sql, (name,))
+    connection.commit()
+    cursor.close()
+
+def delete_Genre(name):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Genres
+    WHERE genre=%s
+    """)
+    cursor.execute(user_sql, (name,))
+    connection.commit()
+    cursor.close()
+
+def select_Series_by_Genre(genre):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT series, series_year FROM Genre_Of
+    WHERE genre=%s
+    ORDER BY series, series_year ASC
+    """)
+    cursor.execute(user_sql, (genre,))
+    results = cursor.fetchall()
+    series = []
+    for r in results:
+        series.append(Series_Key(r))
+    
+    final_results = []
+    for s in series:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        cursor.execute(user_sql, (s.name, s.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Series(s, author_list))
+
+    cursor.close()
+    return final_results
