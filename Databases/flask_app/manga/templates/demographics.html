@@ -1,0 +1,45 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Demographics:</p>
+    <table class="table table-striped">
+        <tbody>
+            {% for d in demographics %}
+            <tr>
+                <td>{{d.demo}}</td>
+                <td>{{d.desc}}</td>
+                <td>
+                    <form action="/series/demographic:{{d.demo}}" method="post">
+                        <input type="hidden" value="{{d.demo}}" name="demographic">
+                        <input type="submit" value="See series">
+                    </form>
+                    <form action="/demographics/delete" method="post">
+                        <input type="hidden" value="{{d.demo}}" name="demographic">
+                        <input type="submit" value="X">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Add demographic:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+          <form action="/demographics/add" method="post">
+            <tr>
+                <td><input type="text" name="demographic" value="" class="wide"></td>
+                <td><input type="submit" value="Add genre"></td>
+            </tr>
+        </form>
+        </tbody>
+        </table>
+
+    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+</div>
+{% endblock content %}

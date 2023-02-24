@@ -4,7 +4,8 @@ from manga.models import select_Specific_Series, select_Authors_of_Series, conne
 from manga.models import select_Series_by_Genre, add_Genre_Connection, select_Genres_by_Series
 from manga.models import delete_Genre_Connection, delete_Author_Connection
 from manga.models import connect_Language, connect_Demographic, connect_Publisher
-from manga.models import check_Author_Exists, add_Author
+from manga.models import select_Series_by_Language, select_Series_by_Demographic
+from manga.models import select_Series_by_Publisher
 
 Series = Blueprint('Manga Series', __name__)
 
@@ -64,7 +65,7 @@ def connect_genre():
 @Series.route('/series/genre:<string:genre>', methods=['GET', 'POST'])
 def series_by_genre(genre):
     series = select_Series_by_Genre(genre)
-    return render_template('series_by_genre.html', title='Series', series=series, genre=genre)
+    return render_template('series_by_filter.html', title='Series', series=series, filter=genre)
 
 @Series.route('/series/disconnect/genre', methods=['POST'])
 def disconnect_genre():
@@ -81,3 +82,18 @@ def disconnect_author():
         from_url = request.form['from']
         delete_Author_Connection(authorship)
     return redirect(from_url)
+
+@Series.route('/series/language:<string:language>', methods=['GET', 'POST'])
+def series_by_language(language):
+    series = select_Series_by_Language(language)
+    return render_template('series_by_filter.html', title='Series', series=series, filter=language)
+
+@Series.route('/series/demographic:<string:demographic>', methods=['GET', 'POST'])
+def series_by_demographic(demographic):
+    series = select_Series_by_Demographic(demographic)
+    return render_template('series_by_filter.html', title='Series', series=series, filter=demographic)
+
+@Series.route('/series/publisher:<string:publisher>', methods=['GET', 'POST'])
+def series_by_publisher(publisher):
+    series = select_Series_by_Publisher(publisher)
+    return render_template('series_by_filter.html', title='Series', series=series, filter=publisher)

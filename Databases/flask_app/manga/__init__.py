@@ -19,3 +19,12 @@ app.register_blueprint(Authors)
 
 from manga.genres.routes import Genres
 app.register_blueprint(Genres)
+
+from manga.languages.routes import Languages
+app.register_blueprint(Languages)
+
+from manga.demographics.routes import Demographics
+app.register_blueprint(Demographics)
+
+from manga.publishers.routes import Publishers
+app.register_blueprint(Publishers)

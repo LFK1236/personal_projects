@@ -1,0 +1,44 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Languages:</p>
+    <table class="table table-striped">
+        <tbody>
+            {% for l in languages %}
+            <tr>
+                <td>{{l}}</td>
+                <td>
+                    <form action="/series/language:{{l}}" method="post">
+                        <input type="hidden" value="{{l}}" name="language">
+                        <input type="submit" value="See series">
+                    </form>
+                    <form action="/languages/delete" method="post">
+                        <input type="hidden" value="{{l}}" name="language">
+                        <input type="submit" value="X">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Add language:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+          <form action="/languages/add" method="post">
+            <tr>
+                <td><input type="text" name="language" value="" class="wide"></td>
+                <td><input type="submit" value="Add genre"></td>
+            </tr>
+        </form>
+        </tbody>
+        </table>
+
+    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+</div>
+{% endblock content %}

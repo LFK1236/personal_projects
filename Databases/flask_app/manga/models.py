@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 from manga import connection
 from psycopg2 import sql
 
@@ -18,14 +17,6 @@ class Volume():
         self.series_year = Volume_Key.series_year
         self.entry = Volume_Key.entry
         self.authors = authors
-
-"""
-class Series(tuple):
-    def __init__(self, series_data):
-        self.name = series_data[0]
-        self.author = series_data[1]
-        self.series_year = series_data[2]
-"""
 
 class Series_Key(tuple):
     def __init__(self, series_data):
@@ -56,6 +47,11 @@ class Series_Full(tuple):
 class Authors(tuple):
     def __init__(self, author_data):
         self.name = author_data[0]
+
+class Demographic(tuple):
+    def __init__(self, demo_data):
+        self.demo = demo_data[0]
+        self.desc = demo_data[1]
 
 def select_Volumes():
     cursor = connection.cursor()
@@ -504,3 +500,162 @@ def add_Publisher(publisher):
     cursor.execute(user_sql, (publisher,))
     connection.commit()
     cursor.close()
+
+def delete_Language(language):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Languages
+    WHERE language=%s
+    """)
+    cursor.execute(user_sql, (language,))
+    connection.commit()
+    cursor.close()
+
+def delete_Demographic(demographic):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Demographics
+    WHERE demo=%s
+    """)
+    cursor.execute(user_sql, (demographic,))
+    connection.commit()
+    cursor.close()
+
+def delete_Publisher(publisher):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Publishers
+    WHERE publisher=%s
+    """)
+    cursor.execute(user_sql, (publisher,))
+    connection.commit()
+    cursor.close()
+
+def select_Languages():
+    cursor = connection.cursor()
+    sql = """
+    SELECT language FROM Languages
+    ORDER BY language ASC
+    """
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    languages = []
+    for language in results:
+        languages.append(language[0])
+    return languages
+
+def select_Demographics():
+    cursor = connection.cursor()
+    sql = """
+    SELECT demo, description FROM Demographics
+    ORDER BY demo ASC
+    """
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    demographics = []
+    for demo in results:
+        demographics.append(Demographic(demo))
+    return demographics
+
+def select_Publishers():
+    cursor = connection.cursor()
+    sql = """
+    SELECT publisher FROM Publishers
+    ORDER BY publisher ASC
+    """
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    publishers = []
+    for publisher in results:
+        publishers.append(publisher[0])
+    return publishers
+
+def select_Series_by_Language(language):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT series, series_year FROM Language_Of
+    WHERE language=%s
+    ORDER BY series, series_year ASC
+    """)
+    cursor.execute(user_sql, (language,))
+    results = cursor.fetchall()
+    series = []
+    for r in results:
+        series.append(Series_Key(r))
+
+    final_results = []
+    for s in series:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        cursor.execute(user_sql, (s.name, s.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Series(s, author_list))
+
+    cursor.close()
+    return final_results
+
+def select_Series_by_Demographic(demographic):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT series, series_year FROM Demographic_Of
+    WHERE demo=%s
+    ORDER BY series, series_year ASC
+    """)
+    cursor.execute(user_sql, (demographic,))
+    results = cursor.fetchall()
+    series = []
+    for r in results:
+        series.append(Series_Key(r))
+
+    final_results = []
+    for s in series:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        cursor.execute(user_sql, (s.name, s.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Series(s, author_list))
+
+    cursor.close()
+    return final_results
+
+def select_Series_by_Publisher(publisher):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT series, series_year FROM Publisher_Of
+    WHERE publisher=%s
+    ORDER BY series, series_year ASC
+    """)
+    cursor.execute(user_sql, (publisher,))
+    results = cursor.fetchall()
+    series = []
+    for r in results:
+        series.append(Series_Key(r))
+
+    final_results = []
+    for s in series:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        cursor.execute(user_sql, (s.name, s.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Series(s, author_list))
+
+    cursor.close()
+    return final_results
