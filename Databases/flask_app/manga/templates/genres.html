@@ -1,0 +1,44 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Genres:</p>
+    <table class="table table-striped">
+        <tbody>
+            {% for g in genres %}
+            <tr>
+                <td>{{g[0]}}</td>
+                <td>
+                    <form action="/series/genre:{{g[0]}}" method="post">
+                        <input type="hidden" value="{{g[0]}}" name="genre_name">
+                        <input type="submit" value="See series">
+                    </form>
+                    <form action="/genres/delete" method="post">
+                        <input type="hidden" value="{{g[0]}}" name="genre_name">
+                        <input type="submit" value="X">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Add genre:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+          <form action="/genres/add" method="post">
+            <tr>
+                <td><input type="text" name="genre_name" value="" class="wide"></td>
+                <td><input type="submit" value="Add genre"></td>
+            </tr>
+        </form>
+        </tbody>
+        </table>
+
+    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+</div>
+{% endblock content %}

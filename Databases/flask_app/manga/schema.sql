@@ -49,7 +49,9 @@ CREATE TABLE IF NOT EXISTS Genres(
 );
 
 CREATE TABLE IF NOT EXISTS Genre_Of(
-    genre varchar(120) REFERENCES Genres(genre),
+    genre varchar(120) REFERENCES Genres(genre)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     series varchar(120),
     series_year char(4),
     CONSTRAINT fk_series

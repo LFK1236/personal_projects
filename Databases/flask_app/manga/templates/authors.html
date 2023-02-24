@@ -13,6 +13,9 @@
             <tr>
                 <td>{{a.name}}</td>
                 <td>
+                    <form action="/authors/details/{{a.name}}" method="post">
+                        <input type="submit" value="...">
+                    </form>
                     <form action="/authors/delete" method="post">
                         <input type="hidden" value="{{a.name}}" name="name">
                         <input type="submit" value="X">
@@ -38,9 +41,9 @@
             </tr>
         </form>
         </tbody>
-        </table>
+    </table>
 
 
-    <br><br><a href="/volumes">See full collection</a><br><a href="/">Back to splash page</a>
+    <br><br><a href="/series">See series</a><br><a href="/">Back to splash page</a>
 </div>
 {% endblock content %}
