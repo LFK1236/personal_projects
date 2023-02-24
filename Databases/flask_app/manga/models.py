@@ -22,11 +22,13 @@ class Series_Key(tuple):
     def __init__(self, series_data):
         self.name = series_data[0]
         self.series_year = series_data[1]
+        self.volumes = series_data[2]
 
 class Series():
     def __init__(self, key, authors):
         self.name = key[0]
         self.series_year = key[1]
+        self.volumes = key[2]
         self.authors = authors
 
 class Author(tuple):
@@ -206,8 +208,11 @@ def select_Authors_of_Series(input):
 def select_Series_by_Author(name):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT series, series_year FROM Authorship WHERE author=%s
-    ORDER BY series, series_year, author ASC
+    SELECT Authorship.series, Authorship.series_year, COUNT(entry) FROM Authorship
+    LEFT JOIN Volumes ON Authorship.series=Volumes.name AND Authorship.series_year=Volumes.series_year
+    WHERE author=%s
+    GROUP BY (Authorship.series, Authorship.series_year, author)
+    ORDER BY Authorship.series, Authorship.series_year, author ASC
     """)
     cursor.execute(user_sql, (name,))
     results = cursor.fetchall()
@@ -249,7 +254,10 @@ def connect_Author(series, series_year, author):
 def select_Series():
     cursor = connection.cursor()
     sql = """
-    SELECT name, series_year FROM Series
+    SELECT Series.name, Series.series_year, COUNT(entry)
+    FROM Series LEFT JOIN Volumes
+    ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+    GROUP BY (Series.name, Series.series_year)
     ORDER BY name, series_year ASC
     """
     cursor.execute(sql)
@@ -311,8 +319,10 @@ def delete_Genre(name):
 def select_Series_by_Genre(genre):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT series, series_year FROM Genre_Of
+    SELECT Genre_Of.series, Genre_Of.series_year, COUNT(entry) FROM Genre_Of
+    LEFT JOIN Volumes ON Genre_Of.series=Volumes.name AND Genre_Of.series_year=Volumes.series_year
     WHERE genre=%s
+    GROUP BY (Genre_Of.series, Genre_Of.series_year, genre)
     ORDER BY series, series_year ASC
     """)
     cursor.execute(user_sql, (genre,))
@@ -576,9 +586,10 @@ def select_Publishers():
 def select_Series_by_Language(language):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT series, series_year FROM Language_Of
+    SELECT Language_Of.series, Language_Of.series_year, COUNT(entry) FROM Language_Of
+    LEFT JOIN Volumes ON Language_Of.series=Volumes.name AND Language_Of.series_year=Volumes.series_year
     WHERE language=%s
-    ORDER BY series, series_year ASC
+    GROUP BY (Language_Of.series, Language_Of.series_year)
     """)
     cursor.execute(user_sql, (language,))
     results = cursor.fetchall()
@@ -605,9 +616,10 @@ def select_Series_by_Language(language):
 def select_Series_by_Demographic(demographic):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT series, series_year FROM Demographic_Of
+    SELECT Demographic_Of.series, Demographic_Of.series_year, COUNT(entry) FROM Demographic_Of
+    LEFT JOIN Volumes ON Demographic_Of.series=Volumes.name AND Demographic_Of.series_year=Volumes.series_year
     WHERE demo=%s
-    ORDER BY series, series_year ASC
+    GROUP BY (Demographic_Of.series, Demographic_Of.series_year)
     """)
     cursor.execute(user_sql, (demographic,))
     results = cursor.fetchall()
@@ -634,9 +646,10 @@ def select_Series_by_Demographic(demographic):
 def select_Series_by_Publisher(publisher):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT series, series_year FROM Publisher_Of
+    SELECT Publisher_Of.series, Publisher_Of.series_year, COUNT(entry) FROM Publisher_Of
+    LEFT JOIN Volumes ON Publisher_Of.series=Volumes.name AND Publisher_Of.series_year=Volumes.series_year
     WHERE publisher=%s
-    ORDER BY series, series_year ASC
+    GROUP BY (Publisher_Of.series, Publisher_Of.series_year)
     """)
     cursor.execute(user_sql, (publisher,))
     results = cursor.fetchall()

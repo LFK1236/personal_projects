@@ -7,6 +7,7 @@
             <tr>
                 <th scope="col">Series Name</th>
                 <th scope="col">Authors</th>
+                <th scope="col">Owned</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,9 @@
                 <td>{% for a in s.authors %}
                     {{a}}<br>
                     {% endfor %}
+                </td>
+                <td>
+                    {{s.volumes}}
                 </td>
                 <td>
                     <form action="/series/details/{{s.name}}/{{s.series_year}}" method="post">
