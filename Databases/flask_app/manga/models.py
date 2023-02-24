@@ -48,9 +48,10 @@ class Series_Full(tuple):
         self.series_year = series_data[1]
         self.author = series_data[2]
         self.edition = series_data[3]
-        self.language = series_data[4]
-        self.rating = series_data[5]
+        self.rating = series_data[4]
+        self.language = series_data[5]
         self.demographic = series_data[6]
+        self.publisher = series_data[7]
 
 class Authors(tuple):
     def __init__(self, author_data):
@@ -177,8 +178,11 @@ def delete_Series(input):
 def select_Specific_Series(input):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Series.name, Series.series_year, Authorship.author, edition, language, rating, demographic
-    FROM Series LEFT JOIN Authorship ON Series.name=Authorship.series AND Series.series_year=Authorship.series_year
+    SELECT Series.name, Series.series_year, Authorship.author, edition, rating, language, demo, publisher
+    FROM (Series LEFT JOIN Authorship ON Series.name=Authorship.series AND Series.series_year=Authorship.series_year)
+    LEFT JOIN Language_Of ON Series.name=Language_Of.series AND Series.series_year=Language_Of.series_year
+    LEFT JOIN Demographic_Of ON Series.name=Demographic_Of.series AND Series.series_year=Demographic_Of.series_year
+    LEFT JOIN Publisher_Of ON Series.name=Publisher_Of.series AND Series.series_year=Publisher_Of.series_year
     WHERE Series.name=%s AND Series.series_year=%s
     """)
     cursor.execute(user_sql, (input[0], input[1]))
@@ -214,7 +218,7 @@ def select_Series_by_Author(name):
     series = []
     for s in results:
         series.append(Series_Key(s))
-    
+
     final_results = []
     for s in series:
         user_sql = ("""
@@ -252,7 +256,7 @@ def select_Series():
     series = []
     for r in results:
         series.append(Series_Key(r))
-    
+
     final_results = []
     for s in series:
         user_sql = ("""
@@ -287,7 +291,7 @@ def add_Genre(name):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
     INSERT INTO Genres(genre)
-    VALUES(%s) 
+    VALUES(%s)
     """)
     cursor.execute(user_sql, (name,))
     connection.commit()
@@ -315,7 +319,7 @@ def select_Series_by_Genre(genre):
     series = []
     for r in results:
         series.append(Series_Key(r))
-    
+
     final_results = []
     for s in series:
         user_sql = ("""

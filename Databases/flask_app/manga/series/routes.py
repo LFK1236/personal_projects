@@ -1,6 +1,8 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models import select_Series, add_Series, delete_Series, select_Specific_Series, select_Authors_of_Series, add_Authorship
-from manga.models import select_Series_by_Genre, add_Genre_Connection, select_Genres_by_Series, delete_Genre_Connection, delete_Author_Connection
+from manga.models import select_Series, add_Series, delete_Series
+from manga.models import select_Specific_Series, select_Authors_of_Series, add_Authorship
+from manga.models import select_Series_by_Genre, add_Genre_Connection, select_Genres_by_Series
+from manga.models import delete_Genre_Connection, delete_Author_Connection, select_Language_of_Series
 
 Series = Blueprint('Manga Series', __name__)
 
@@ -26,12 +28,11 @@ def delete():
 
 @Series.route('/series/details/<string:series_name>/<string:series_year>', methods=['GET', 'POST'])
 def details(series_name, series_year):
-    if request.method == 'POST':
-        series_info = [request.form['name'], request.form['series_year']]
-        series = select_Specific_Series(series_info)
-        names = select_Authors_of_Series(series_info)
-        genres = select_Genres_by_Series(series_info)
-        return render_template('series_details.html', title='Series Details', series=series[0], names=names, genres=genres)
+    series_info = [series_name, series_year]
+    series = select_Specific_Series(series_info)
+    names = select_Authors_of_Series(series_info)
+    genres = select_Genres_by_Series(series_info)
+    return render_template('series_details.html', title='Series Details', series=series[0], names=names, genres=genres)
 
 @Series.route('/series/connect/author', methods=['POST'])
 def connect_author():

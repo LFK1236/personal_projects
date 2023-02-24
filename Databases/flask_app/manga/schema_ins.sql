@@ -9,7 +9,7 @@ INSERT INTO Series(name, series_year, edition)
 VALUES ('Fullmetal Alchemist', '2018', 'Fullmetal Edition');
 
 INSERT INTO Authorship(author, series, series_year)
-VALUES 
+VALUES
     ('Akira Toriyama', 'Dragonball', '2003'),
     ('Eiichiro Oda', 'One Piece', '2003'),
     ('Hiromu Arakawa', 'Fullmetal Alchemist', '2018');
@@ -30,3 +30,12 @@ VALUES
     ('Adventure', 'Dragonball', '2003'), ('Action', 'Dragonball', '2003'), ('Martial Arts', 'Dragonball', '2003'),
     ('Adventure', 'One Piece', '2003'), ('Action', 'One Piece', '2003')
 ;
+
+INSERT INTO Publishers(publisher)
+VALUES ('Viz Media'), ('Kodanshi'), ('Yen Press'), ('Square Enix');
+
+INSERT INTO Languages(language)
+VALUES ('English'), ('Japanese'), ('Danish');
+
+INSERT INTO Demographics(demo, description)
+VALUES ('Shonen', 'Teenage boys'), ('Shojo', 'Teenage girls'), ('Seinen', 'Adult men'), ('Josei', 'Adult women')
