@@ -3,13 +3,13 @@ from psycopg2 import sql
 
 from manga.models.classes import Series_Key, Series_Full, Series
 
-def add_Series(user_input):
+def add_Series(series, series_year):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
     INSERT INTO Series(name, series_year)
     VALUES(%s, %s)
     """)
-    cursor.execute(user_sql, (user_input[0], user_input[1]))
+    cursor.execute(user_sql, (series, series_year))
     connection.commit()
     cursor.close()
 
@@ -228,3 +228,36 @@ def select_Series_by_Publisher(publisher):
 
     cursor.close()
     return final_results
+
+def check_Series_Exists(series, series_year):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT * FROM Series
+    WHERE name=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (series, series_year))
+    result = cursor.fetchone()
+    cursor.close()
+    return (result != None)
+
+def series_Update_Edition(series, series_year, edition):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Series
+    SET edition=%s
+    WHERE name=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (edition, series, series_year))
+    connection.commit()
+    cursor.close()
+
+def series_Update_Rating(series, series_year, rating):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Series
+    SET rating=%s
+    WHERE name=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (rating, series, series_year))
+    connection.commit()
+    cursor.close()

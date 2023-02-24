@@ -50,6 +50,18 @@ def connect_Publisher(series, series_year, publisher):
     connection.commit()
     cursor.close()
 
+def disconnect_Publisher(series, series_year):
+    if series == "" or series_year == "":
+        return
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Publisher_Of
+    WHERE series=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (series, series_year))
+    connection.commit()
+    cursor.close()
+
 def check_Publisher_Exists(publisher):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""

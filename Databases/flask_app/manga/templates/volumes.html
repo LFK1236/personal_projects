@@ -19,6 +19,11 @@
                 {{a}}<br>
                 {% endfor %}</td>
             <td>
+            <form action="/series/details/{{v.name}}/{{v.series_year}}" method="post">
+                    <input type="hidden" value="{{v.name}}" name="name">
+                    <input type="hidden" value="{{v.series_year}}" name="series_year">
+                    <input type="submit" value="...">
+            </form>
             <form action="/volumes/delete" method="post">
                 <input type="hidden" value="{{v.name}}" name="name">
                 <input type="hidden" value="{{v.series_year}}" name="series_year">
@@ -36,9 +41,9 @@
     <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Series Name</th>
-            <th scope="col">Series Year</th>
-            <th scope="col">Entry</th>
+            <th scope="col">Series Name<span style="color:red">*</span></th>
+            <th scope="col">Series Year<span style="color:red">*</span></th>
+            <th scope="col">Entry<span style="color:red">*</span></th>
         </tr>
     </thead>
     <tbody>
@@ -57,10 +62,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Series Name</th>
-                <th scope="col">Series Year</th>
-                <th scope="col">First entry</th>
-                <th scope="col">Latest entry</th>
+                <th scope="col">Series Name<span style="color:red">*</span></th>
+                <th scope="col">Series Year<span style="color:red">*</span></th>
+                <th scope="col">First entry<span style="color:red">*</span></th>
+                <th scope="col">Latest entry<span style="color:red">*</span></th>
             </tr>
         </thead>
         <tbody>

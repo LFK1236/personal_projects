@@ -2,6 +2,7 @@ from manga import connection
 from psycopg2 import sql
 
 from manga.models.classes import Author, Authors
+from manga.models.series import check_Series_Exists, add_Series
 
 def select_Specific_Authors(name):
     cursor = connection.cursor()
@@ -91,7 +92,8 @@ def connect_Author(series, series_year, author):
         return
     if check_Author_Exists(author) == False:
         add_Author(author)
-
+    if check_Series_Exists(series, series_year) == False:
+        add_Series(series, series_year)
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
     INSERT INTO Authorship(series, series_year, author)

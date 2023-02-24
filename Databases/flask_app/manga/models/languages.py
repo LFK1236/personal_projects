@@ -50,6 +50,19 @@ def connect_Language(series, series_year, language):
     connection.commit()
     cursor.close()
 
+def disconnect_Language(series, series_year):
+    if series == "" or series_year == "":
+        return
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Language_Of
+    WHERE series=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (series, series_year))
+    connection.commit()
+    cursor.close()
+
+
 def check_Language_Exists(language):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""

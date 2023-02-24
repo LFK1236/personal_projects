@@ -52,6 +52,18 @@ def connect_Demographic(series, series_year, demo):
     connection.commit()
     cursor.close()
 
+def disconnect_Demographic(series, series_year):
+    if series == "" or series_year == "":
+        return
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    DELETE FROM Demographic_Of
+    WHERE series=%s AND series_year=%s
+    """)
+    cursor.execute(user_sql, (series, series_year))
+    connection.commit()
+    cursor.close()
+
 def check_Demographic_Exists(demographic):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
