@@ -38,8 +38,12 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Year</th>
+                <th scope="col">Name<span style="color:red">*</span></th>
+                <th scope="col">Year<span style="color:red">*</span></th>
+                <th scope="col">Author (only one, can add more later)</th>
+                <th scope="col">Language</th>
+                <th scope="col">Demographic</th>
+                <th scope="col">Publisher</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +51,12 @@
             <tr>
                 <td><input type="text" name="name" value="" class="wide"></td>
                 <td><input type="text" name="series_year" value="" class="narrow"></td>
-                <td><input type="submit" value="Add series"></td>
+                <td><input type="text" name="author" value="" class="wide"></td>
+                <td><input type="text" name="language" value="" class="narrow"></td>
+                <td><input type="text" name="demographic" value="" class="narrow"></td>
+                <td><input type="text" name="publisher" value="" class="narrow"></td>
+                <td><input type="submit" value="Add series"><input type="reset"></td>
+
             </tr>
         </form>
         </tbody>

@@ -1,8 +1,10 @@
 from flask import render_template, url_for, redirect, Blueprint, request
 from manga.models import select_Series, add_Series, delete_Series
-from manga.models import select_Specific_Series, select_Authors_of_Series, add_Authorship
+from manga.models import select_Specific_Series, select_Authors_of_Series, connect_Author
 from manga.models import select_Series_by_Genre, add_Genre_Connection, select_Genres_by_Series
-from manga.models import delete_Genre_Connection, delete_Author_Connection, select_Language_of_Series
+from manga.models import delete_Genre_Connection, delete_Author_Connection
+from manga.models import connect_Language, connect_Demographic, connect_Publisher
+from manga.models import check_Author_Exists, add_Author
 
 Series = Blueprint('Manga Series', __name__)
 
@@ -14,9 +16,19 @@ def series():
 @Series.route('/series/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        series_info = [request.form['name'], request.form['series_year']]
-        if series_info[0] != None and series_info[1] != None:
-            add_Series(series_info)
+        series = request.form['name']
+        series_year = request.form['series_year']
+        author = request.form['author']
+        language = request.form['language']
+        demographic = request.form['demographic']
+        publisher = request.form['publisher']
+        if series != "" and series_year != "":
+            add_Series([series, series_year])
+            connect_Author(series, series_year, author)
+            connect_Language(series, series_year, language)
+            connect_Demographic(series, series_year, demographic)
+            connect_Publisher(series, series_year, publisher)
+
     return redirect('/series')
 
 @Series.route('/series/delete', methods=['POST'])
@@ -37,9 +49,8 @@ def details(series_name, series_year):
 @Series.route('/series/connect/author', methods=['POST'])
 def connect_author():
     if request.method == 'POST':
-        authorship = [request.form['name'], request.form['series_year'], request.form['author_name']]
         from_url = request.form['from']
-        add_Authorship(authorship)
+        connect_Author(request.form['name'], request.form['series_year'], request.form['author_name'])
     return redirect(from_url)
 
 @Series.route('/series/connect/genre', methods=['POST'])

@@ -235,13 +235,18 @@ def select_Series_by_Author(name):
     cursor.close()
     return final_results
 
-def add_Authorship(input):
+def connect_Author(series, series_year, author):
+    if series == "" or series_year == "" or author == "":
+        return
+    if check_Author_Exists(author) == False:
+        add_Author(author)
+
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
     INSERT INTO Authorship(series, series_year, author)
     VALUES (%s, %s, %s)
     """)
-    cursor.execute(user_sql, ([input[0], input[1], input[2]]))
+    cursor.execute(user_sql, (series, series_year, author))
     connection.commit()
     cursor.close()
 
@@ -378,5 +383,124 @@ def delete_Author_Connection(input):
     WHERE series=%s AND series_year=%s AND author=%s
     """)
     cursor.execute(user_sql, (input[0], input[1], input[2]))
+    connection.commit()
+    cursor.close()
+
+def connect_Language(series, series_year, language):
+    if series == "" or series_year == "" or language == "":
+        return
+    if check_Language_Exists(language) == False:
+        add_Language(language)
+
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Language_Of(series, series_year, language)
+    VALUES (%s, %s, %s)
+    """)
+    cursor.execute(user_sql, (series, series_year, language))
+    connection.commit()
+    cursor.close()
+
+def connect_Demographic(series, series_year, demo):
+    if series == "" or series_year == "" or demo == "":
+        return
+    if check_Demographic_Exists(demo) == False:
+        add_Demographic(demo)
+
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Demographic_Of(series, series_year, demo)
+    VALUES (%s, %s, %s)
+    """)
+    cursor.execute(user_sql, (series, series_year, demo))
+    connection.commit()
+    cursor.close()
+
+def connect_Publisher(series, series_year, publisher):
+    if series == "" or series_year == "" or publisher == "":
+        return
+    if check_Publisher_Exists(publisher) == False:
+        add_Publisher(publisher)
+
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Publisher_Of(series, series_year, publisher)
+    VALUES (%s, %s, %s)
+    """)
+    cursor.execute(user_sql, (series, series_year, publisher))
+    connection.commit()
+    cursor.close()
+
+def check_Author_Exists(author):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT * FROM Authors
+    WHERE name=%s
+    """)
+    cursor.execute(user_sql, (author,))
+    result = cursor.fetchone()
+    cursor.close()
+    return (result != None)
+
+def check_Language_Exists(language):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT * FROM Languages
+    WHERE language=%s
+    """)
+    cursor.execute(user_sql, (language,))
+    result = cursor.fetchone()
+    cursor.close()
+    return (result != None)
+
+def check_Demographic_Exists(demographic):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT * FROM Demographics
+    WHERE demo=%s
+    """)
+    cursor.execute(user_sql, (demographic,))
+    result = cursor.fetchone()
+    cursor.close()
+    return (result != None)
+
+def check_Publisher_Exists(publisher):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT * FROM Publishers
+    WHERE publisher=%s
+    """)
+    cursor.execute(user_sql, (publisher,))
+    result = cursor.fetchone()
+    cursor.close()
+    return (result != None)
+
+def add_Language(language):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Languages(language)
+    VALUES (%s)
+    """)
+    cursor.execute(user_sql, (language,))
+    connection.commit()
+    cursor.close()
+
+def add_Demographic(demographic):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Demographics(demo)
+    VALUES (%s)
+    """)
+    cursor.execute(user_sql, (demographic,))
+    connection.commit()
+    cursor.close()
+
+def add_Publisher(publisher):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    INSERT INTO Publishers(publisher)
+    VALUES (%s)
+    """)
+    cursor.execute(user_sql, (publisher,))
     connection.commit()
     cursor.close()
