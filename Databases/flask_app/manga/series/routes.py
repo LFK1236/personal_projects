@@ -1,11 +1,13 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models import select_Series, add_Series, delete_Series
-from manga.models import select_Specific_Series, select_Authors_of_Series, connect_Author
-from manga.models import select_Series_by_Genre, add_Genre_Connection, select_Genres_by_Series
-from manga.models import delete_Genre_Connection, delete_Author_Connection
-from manga.models import connect_Language, connect_Demographic, connect_Publisher
-from manga.models import select_Series_by_Language, select_Series_by_Demographic
-from manga.models import select_Series_by_Publisher
+from manga.models.series import select_Series, add_Series, delete_Series
+from manga.models.series import select_Specific_Series, select_Series_by_Genre
+from manga.models.authors import select_Authors_of_Series, connect_Author, delete_Author_Connection
+from manga.models.genres import add_Genre_Connection, select_Genres_by_Series, delete_Genre_Connection
+from manga.models.languages import connect_Language
+from manga.models.demographics import connect_Demographic
+from manga.models.publishers import connect_Publisher
+from manga.models.series import select_Series_by_Language, select_Series_by_Demographic
+from manga.models.series import select_Series_by_Publisher
 
 Series = Blueprint('Manga Series', __name__)
 

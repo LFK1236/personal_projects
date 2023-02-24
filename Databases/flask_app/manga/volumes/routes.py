@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models import select_Volumes, add_Volume, remove_Volume, select_Specific_Authors, add_Author
+from manga.models.volumes import select_Volumes, add_Volume, remove_Volume
 
 Volumes = Blueprint('Manga Volumes', __name__)
 

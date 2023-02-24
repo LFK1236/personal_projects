@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models import select_Demographics, add_Demographic, delete_Demographic
+from manga.models.demographics import select_Demographics, add_Demographic, delete_Demographic
 
 Demographics = Blueprint('Demographics', __name__)
 

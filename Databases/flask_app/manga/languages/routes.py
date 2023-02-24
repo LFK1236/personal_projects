@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models import select_Languages, add_Language, delete_Language
+from manga.models.languages import select_Languages, add_Language, delete_Language
 
 Languages = Blueprint('Languages', __name__)
 
