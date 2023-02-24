@@ -52,3 +52,34 @@ def remove_Volume(input):
     cursor.execute(user_sql, (input[0], input[1], input[2]))
     connection.commit()
     cursor.close()
+
+def select_Volumes_By_Series(series, series_year):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    SELECT Volumes.name, Volumes.series_year, entry
+    FROM Volumes
+    WHERE Volumes.name=%s AND Volumes.series_year=%s
+    ORDER BY Volumes.name, Volumes.series_year, entry ASC
+    """)
+    cursor.execute(user_sql, (series, series_year))
+    results = cursor.fetchall()
+    volumes = []
+    for vol in results:
+        volumes.append(Volume_Key(vol))
+
+    final_results = []
+    for r in volumes:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        print(type(r))
+        cursor.execute(user_sql, (r.name, r.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Volume(r, author_list))
+
+    cursor.close()
+    return final_results

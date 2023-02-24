@@ -11,17 +11,19 @@ class Volume():
         self.entry = Volume_Key.entry
         self.authors = authors
 
-class Series_Key(tuple):
+class Series(tuple):
     def __init__(self, series_data):
         self.name = series_data[0]
         self.series_year = series_data[1]
         self.volumes = series_data[2]
+        self.rating = series_data[3]
 
-class Series():
+class Series_with_Authors():
     def __init__(self, key, authors):
         self.name = key[0]
         self.series_year = key[1]
         self.volumes = key[2]
+        self.rating = key[3]
         self.authors = authors
 
 class Author(tuple):

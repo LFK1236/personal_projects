@@ -1,7 +1,38 @@
 from manga import connection
 from psycopg2 import sql
 
-from manga.models.classes import Series_Key, Series_Full, Series
+from manga.models.classes import Series, Series_Full, Series_with_Authors
+
+def select_Series():
+    cursor = connection.cursor()
+    sql = """
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+    FROM Series LEFT JOIN Volumes
+    ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+    GROUP BY (Series.name, Series.series_year)
+    ORDER BY name, series_year ASC
+    """
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    series = []
+    for r in results:
+        series.append(Series(r))
+
+    final_results = []
+    for s in series:
+        user_sql = ("""
+        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
+        ORDER BY author ASC
+        """)
+        cursor.execute(user_sql, (s.name, s.series_year))
+        authors = cursor.fetchall()
+        author_list = []
+        for a in authors:
+            author_list.append(a[0])
+        final_results.append(Series_with_Authors(s, author_list))
+
+    cursor.close()
+    return final_results
 
 def add_Series(series, series_year):
     cursor = connection.cursor()
@@ -58,7 +89,7 @@ def select_Series_by_Author(name):
     results = cursor.fetchall()
     series = []
     for s in results:
-        series.append(Series_Key(s))
+        series.append(Series(s))
 
     final_results = []
     for s in series:
@@ -71,38 +102,7 @@ def select_Series_by_Author(name):
         author_list = []
         for a in authors:
             author_list.append(a[0])
-        final_results.append(Series(s, author_list))
-
-    cursor.close()
-    return final_results
-
-def select_Series():
-    cursor = connection.cursor()
-    sql = """
-    SELECT Series.name, Series.series_year, COUNT(entry)
-    FROM Series LEFT JOIN Volumes
-    ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-    GROUP BY (Series.name, Series.series_year)
-    ORDER BY name, series_year ASC
-    """
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    series = []
-    for r in results:
-        series.append(Series_Key(r))
-
-    final_results = []
-    for s in series:
-        user_sql = ("""
-        SELECT author FROM Authorship WHERE series=%s AND series_year=%s
-        ORDER BY author ASC
-        """)
-        cursor.execute(user_sql, (s.name, s.series_year))
-        authors = cursor.fetchall()
-        author_list = []
-        for a in authors:
-            author_list.append(a[0])
-        final_results.append(Series(s, author_list))
+        final_results.append(Series_with_Authors(s, author_list))
 
     cursor.close()
     return final_results
@@ -120,7 +120,7 @@ def select_Series_by_Genre(genre):
     results = cursor.fetchall()
     series = []
     for r in results:
-        series.append(Series_Key(r))
+        series.append(Series(r))
 
     final_results = []
     for s in series:
@@ -133,7 +133,7 @@ def select_Series_by_Genre(genre):
         author_list = []
         for a in authors:
             author_list.append(a[0])
-        final_results.append(Series(s, author_list))
+        final_results.append(Series_with_Authors(s, author_list))
 
     cursor.close()
     return final_results
@@ -150,7 +150,7 @@ def select_Series_by_Language(language):
     results = cursor.fetchall()
     series = []
     for r in results:
-        series.append(Series_Key(r))
+        series.append(Series(r))
 
     final_results = []
     for s in series:
@@ -163,7 +163,7 @@ def select_Series_by_Language(language):
         author_list = []
         for a in authors:
             author_list.append(a[0])
-        final_results.append(Series(s, author_list))
+        final_results.append(Series_with_Authors(s, author_list))
 
     cursor.close()
     return final_results
@@ -180,7 +180,7 @@ def select_Series_by_Demographic(demographic):
     results = cursor.fetchall()
     series = []
     for r in results:
-        series.append(Series_Key(r))
+        series.append(Series(r))
 
     final_results = []
     for s in series:
@@ -193,7 +193,7 @@ def select_Series_by_Demographic(demographic):
         author_list = []
         for a in authors:
             author_list.append(a[0])
-        final_results.append(Series(s, author_list))
+        final_results.append(Series_with_Authors(s, author_list))
 
     cursor.close()
     return final_results
@@ -211,7 +211,7 @@ def select_Series_by_Publisher(publisher):
     results = cursor.fetchall()
     series = []
     for r in results:
-        series.append(Series_Key(r))
+        series.append(Series(r))
 
     final_results = []
     for s in series:
@@ -224,7 +224,7 @@ def select_Series_by_Publisher(publisher):
         author_list = []
         for a in authors:
             author_list.append(a[0])
-        final_results.append(Series(s, author_list))
+        final_results.append(Series_with_Authors(s, author_list))
 
     cursor.close()
     return final_results

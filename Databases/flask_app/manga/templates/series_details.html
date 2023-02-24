@@ -2,6 +2,9 @@
 {% block content %}
 <div class="content-section">
     <p><bf>{{series.name}} ({{series.series_year}}):</bf></p>
+    <input type="button" value="See volumes" onclick="window.location.href='/volumes/{{series.name}}/{{series.series_year}}'">
+    <br>
+    <br>
     <table class="table table-striped">
         <thead>
             <th scope="col">Author(s)</th>

@@ -1,5 +1,6 @@
 from flask import render_template, url_for, redirect, Blueprint, request
 from manga.models.volumes import select_Volumes, add_Volume, remove_Volume
+from manga.models.volumes import select_Volumes_By_Series
 
 Volumes = Blueprint('Manga Volumes', __name__)
 
@@ -36,3 +37,8 @@ def delete():
         if volume_info[2] != None:
             remove_Volume(volume_info)
         return redirect('/volumes')
+
+@Volumes.route('/volumes/<string:series>/<string:series_year>', methods=['GET'])
+def volumes_by_series(series, series_year):
+    volumes = select_Volumes_By_Series(series, series_year)
+    return render_template('volumes.html', title='Manga Volumes', volumes=volumes)

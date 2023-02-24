@@ -8,6 +8,7 @@
                 <th scope="col">Series Name</th>
                 <th scope="col">Authors</th>
                 <th scope="col">Owned</th>
+                <th scope="col">Rating</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,11 @@
                 </td>
                 <td>
                     {{s.volumes}}
+                </td>
+                <td>
+                    {% if s.rating > 0 %}
+                        {{s.rating}}/10
+                    {% endif %}
                 </td>
                 <td>
                     <form action="/series/details/{{s.name}}/{{s.series_year}}" method="post">
