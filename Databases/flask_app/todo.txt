@@ -1,12 +1,7 @@
-Count number of entries owned in a series.
-
 Buttons to filter based on user-defined criteria.
-
-Allow user to optionally input language when creating volume.
-Change default language.
 
 Stored procedures instead of if/else statements
 
-Fallbacks in case of incorrect user input
-
 Sanitise user input somehow?
+
+Nicer-looking UI
