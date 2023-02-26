@@ -34,18 +34,20 @@
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col">Description</th>
             </tr>
         </thead>
         <tbody>
           <form action="/demographics/add" method="post">
             <tr>
                 <td><input type="text" name="demographic" value="" class="wide"></td>
+                <td><input type="text" name="description" value="" class="wide"></td>
                 <td><input type="submit" value="Add demographic"></td>
             </tr>
         </form>
         </tbody>
-        </table>
+    </table>
 
-    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+    {% include "footer.html" %}
 </div>
 {% endblock content %}

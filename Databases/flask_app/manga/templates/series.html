@@ -14,13 +14,13 @@
         <tbody>
             {% for s in series %}
             <tr>
-                <td>{{s.name}} ({{s.series_year}})</td>
+                <td><a href="/series/details/{{s.name}}/{{s.series_year}}">{{s.name}} ({{s.series_year}})</a></td>
                 <td>{% for a in s.authors %}
-                    {{a}}<br>
+                    <a href="/authors/details/{{a}}">{{a}}</a><br>
                     {% endfor %}
                 </td>
                 <td>
-                    {{s.volumes}}
+                    <a href="/volumes/{{s.name}}/{{s.series_year}}">{{s.volumes}}</a>
                 </td>
                 <td>
                     {% if s.rating > 0 %}
@@ -69,9 +69,8 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-
-    <br><br><a href="/volumes">See full collection</a><br><a href="/">Back to splash page</a>
+    </table>
+    
+    <br><br><input type="button" value="Home" onclick="window.location.href='/'">
 </div>
 {% endblock content %}

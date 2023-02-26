@@ -3,13 +3,13 @@ from psycopg2 import sql
 
 from manga.models.classes import Demographic
 
-def add_Demographic(demographic):
+def add_Demographic(demographic, description):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    INSERT INTO Demographics(demo)
-    VALUES (%s)
+    INSERT INTO Demographics(demo, description)
+    VALUES (%s, %s)
     """)
-    cursor.execute(user_sql, (demographic,))
+    cursor.execute(user_sql, (demographic, description))
     connection.commit()
     cursor.close()
 
@@ -41,7 +41,7 @@ def connect_Demographic(series, series_year, demo):
     if series == "" or series_year == "" or demo == "":
         return
     if check_Demographic_Exists(demo) == False:
-        add_Demographic(demo)
+        add_Demographic(demo, "")
 
     cursor = connection.cursor()
     user_sql = sql.SQL ("""

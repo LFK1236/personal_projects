@@ -8,18 +8,24 @@
                 <th scope="col">Series Name</th>
                 <th scope="col">Authors</th>
                 <th scope="col">Owned</th>
+                <th scope="col">Rating</th>
             </tr>
         </thead>
         <tbody>
             {% for s in series %}
             <tr>
-                <td>{{s.name}} ({{s.series_year}})</td>
+                <td><a href="/series/details/{{s.name}}/{{s.series_year}}">{{s.name}} ({{s.series_year}})</a></td>
                 <td>{% for a in s.authors %}
-                    {{a}}<br>
+                    <a href="/authors/details/{{a}}">{{a}}</a><br>
                     {% endfor %}
                 </td>
                 <td>
-                    {{s.volumes}}
+                    <a href="/volumes/{{s.name}}/{{s.series_year}}">{{s.volumes}}</a>
+                </td>
+                <td>
+                    {% if s.rating > 0 %}
+                        {{s.rating}}/10
+                    {% endif %}
                 </td>
                 <td>
                     <form action="/series/details/{{s.name}}/{{s.series_year}}" method="post">
@@ -65,7 +71,6 @@
         </tbody>
         </table>
 
-
-    <br><br><a href="/volumes">See full collection</a><br><a href="/">Back to splash page</a>
+    {% include "footer.html" %}
 </div>
 {% endblock content %}

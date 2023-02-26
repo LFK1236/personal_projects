@@ -11,7 +11,8 @@ def demographics():
 @Demographics.route('/demographics/add', methods=['POST'])
 def add():
     demographic = request.form['demographic']
-    add_Demographic(demographic)
+    description = request.form['description']
+    add_Demographic(demographic, description)
     return redirect('/demographics')
 
 @Demographics.route('/demographics/delete', methods=['POST'])
