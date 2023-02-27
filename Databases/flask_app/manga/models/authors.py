@@ -102,3 +102,14 @@ def connect_Author(series, series_year, author):
     cursor.execute(user_sql, (series, series_year, author))
     connection.commit()
     cursor.close()
+
+def update_Author(key, new):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Authors
+    SET name=%s
+    WHERE name=%s
+    """)
+    cursor.execute(user_sql, (new, key))
+    connection.commit()
+    cursor.close()

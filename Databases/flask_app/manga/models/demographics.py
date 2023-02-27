@@ -74,3 +74,14 @@ def check_Demographic_Exists(demographic):
     result = cursor.fetchone()
     cursor.close()
     return (result != None)
+
+def update_Demographic(key, data):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Demographics
+    SET demo=%s, description=%s
+    WHERE demo=%s
+    """)
+    cursor.execute(user_sql, (data[0], data[1], key))
+    connection.commit()
+    cursor.close()

@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>{{filter}} series:</p>
     <table class="table table-striped">
         <thead>
@@ -69,8 +70,6 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-    {% include "footer.html" %}
+    </table>
 </div>
 {% endblock content %}

@@ -72,3 +72,14 @@ def check_Publisher_Exists(publisher):
     result = cursor.fetchone()
     cursor.close()
     return (result != None)
+
+def update_Publisher(key, new):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Publishers
+    SET publisher=%s
+    WHERE publisher=%s
+    """)
+    cursor.execute(user_sql, (new, key))
+    connection.commit()
+    cursor.close()

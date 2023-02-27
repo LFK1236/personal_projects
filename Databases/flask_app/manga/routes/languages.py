@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models.languages import select_Languages, add_Language, delete_Language
+from manga.models.languages import select_Languages, add_Language, delete_Language, update_Language
 
 Languages = Blueprint('Languages', __name__)
 
@@ -18,4 +18,12 @@ def add():
 def delete():
     language = request.form['language']
     delete_Language(language)
+    return redirect('/languages')
+
+@Languages.route('/languages/edit', methods=['GET', 'POST'])
+def edit():
+    if request.method == 'POST':
+        key = request.form['key']
+        data = request.form['language']
+        update_Language(key, data)
     return redirect('/languages')

@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models.genres import select_Genres, add_Genre, delete_Genre
+from manga.models.genres import select_Genres, add_Genre, delete_Genre, update_Genre
 
 Genres = Blueprint('Genres', __name__)
 
@@ -18,4 +18,12 @@ def add():
 def delete():
     genre = request.form['genre_name']
     delete_Genre(genre)
+    return redirect('/genres')
+
+@Genres.route('/genres/edit', methods=['GET', 'POST'])
+def edit():
+    if request.method == 'POST':
+        key = request.form['key']
+        data = request.form['genre']
+        update_Genre(key, data)
     return redirect('/genres')

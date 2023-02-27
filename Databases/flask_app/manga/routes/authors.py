@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models.authors import select_Authors, add_Author, delete_Author, connect_Author
+from manga.models.authors import select_Authors, add_Author, delete_Author, connect_Author, update_Author
 from manga.models.series import select_Series_by_Author
 
 Authors = Blueprint('Authors', __name__)
@@ -36,3 +36,11 @@ def connect():
         from_url = request.form['from']
         connect_Author(request.form['name'], request.form['series_year'], request.form['author_name'])
     return redirect(from_url)
+
+@Authors.route('/authors/edit', methods=['GET', 'POST'])
+def edit():
+    if request.method == 'POST':
+        key = request.form['key']
+        data = request.form['author']
+        update_Author(key, data)
+    return redirect('/authors')

@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Genres:</p>
     <table class="table table-striped">
         <tbody>
@@ -11,6 +12,11 @@
                     <form action="/series/genre:{{g[0]}}" method="post">
                         <input type="hidden" value="{{g[0]}}" name="genre_name">
                         <input type="submit" value="See series">
+                    </form>
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Genres" name="table">
+                        <input type="hidden" value="{{g[0]}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                     <form action="/genres/delete" method="post">
                         <input type="hidden" value="{{g[0]}}" name="genre_name">
@@ -38,7 +44,5 @@
         </form>
         </tbody>
     </table>
-
-    {% include "footer.html" %}
 </div>
 {% endblock content %}

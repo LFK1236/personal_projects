@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Series:</p>
     <table class="table table-striped">
         <thead>
@@ -70,7 +71,5 @@
         </form>
         </tbody>
     </table>
-    
-    <br><br><input type="button" value="Home" onclick="window.location.href='/'">
 </div>
 {% endblock content %}

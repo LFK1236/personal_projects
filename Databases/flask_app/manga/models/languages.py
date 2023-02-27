@@ -73,3 +73,14 @@ def check_Language_Exists(language):
     result = cursor.fetchone()
     cursor.close()
     return (result != None)
+
+def update_Language(key, new):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Languages
+    SET language=%s
+    WHERE language=%s
+    """)
+    cursor.execute(user_sql, (new, key))
+    connection.commit()
+    cursor.close()

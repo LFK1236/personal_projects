@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Publishers:</p>
     <table class="table table-striped">
         <tbody>
@@ -11,6 +12,11 @@
                     <form action="/series/publisher:{{p}}" method="post">
                         <input type="hidden" value="{{p}}" name="publisher">
                         <input type="submit" value="See series">
+                    </form>
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Publishers" name="table">
+                        <input type="hidden" value="{{p}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                     <form action="/publishers/delete" method="post">
                         <input type="hidden" value="{{p}}" name="publisher">
@@ -37,8 +43,6 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-        {% include "footer.html" %}
+    </table>
 </div>
 {% endblock content %}

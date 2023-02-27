@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Languages:</p>
     <table class="table table-striped">
         <tbody>
@@ -11,6 +12,11 @@
                     <form action="/series/language:{{l}}" method="post">
                         <input type="hidden" value="{{l}}" name="language">
                         <input type="submit" value="See series">
+                    </form>
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Languages" name="table">
+                        <input type="hidden" value="{{l}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                     <form action="/languages/delete" method="post">
                         <input type="hidden" value="{{l}}" name="language">
@@ -37,8 +43,6 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-    {% include "footer.html" %}
+    </table>
 </div>
 {% endblock content %}

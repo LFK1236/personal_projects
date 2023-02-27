@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Demographics:</p>
     <table class="table table-striped">
         <thead>
@@ -18,6 +19,12 @@
                     <form action="/series/demographic:{{d.demo}}" method="post">
                         <input type="hidden" value="{{d.demo}}" name="demographic">
                         <input type="submit" value="See series">
+                    </form>
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Demographics" name="table">
+                        <input type="hidden" value="{{d.demo}}" name="demo">
+                        <input type="hidden" value="{{d.desc}}" name="desc">
+                        <input type="submit" value="Edit">
                     </form>
                     <form action="/demographics/delete" method="post">
                         <input type="hidden" value="{{d.demo}}" name="demographic">
@@ -47,7 +54,5 @@
         </form>
         </tbody>
     </table>
-
-    {% include "footer.html" %}
 </div>
 {% endblock content %}

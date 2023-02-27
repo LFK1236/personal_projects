@@ -1,6 +1,7 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Full Collection:</p>
     <table class="table table-striped">
         <thead>
@@ -80,7 +81,5 @@
             </form>
         </tbody>
     </table>
-
-    {% include "footer.html" %}
 </div>
 {% endblock content %}
