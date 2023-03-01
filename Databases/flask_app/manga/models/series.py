@@ -3,20 +3,96 @@ from psycopg2 import sql
 
 from manga.models.classes import Series, Series_Full, Series_with_Authors
 
-def select_Series():
+def select_Series(sort):
     cursor = connection.cursor()
-    sql = """
-    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-    FROM Series LEFT JOIN Volumes
-    ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-    GROUP BY (Series.name, Series.series_year)
-    ORDER BY name, series_year ASC
-    """
-    cursor.execute(sql)
+    if (sort.category == 'name, series_year' and sort.direction == 'DES'):
+        print("desc")
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY name DESC, series_year DESC
+        """
+    elif (sort.category == 'rating' and sort.direction == 'ASC'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY Series.rating ASC, name ASC, series_year ASC
+        """
+    elif (sort.category == 'rating' and sort.direction == 'DES'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY Series.rating DESC, name DESC, series_year DESC
+        """
+    elif (sort.category == 'owned' and sort.direction == 'ASC'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY COUNT(entry) ASC, name ASC, series_year ASC
+        """
+    elif (sort.category == 'owned' and sort.direction == 'DES'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY COUNT(entry) DESC, name DESC, series_year DESC
+        """
+    # The author sorts do not work as intended.
+    elif (sort.category == 'authors' and sort.direction == 'ASC'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, author
+        FROM Series
+        LEFT JOIN
+            (SELECT * 
+            FROM Authorship
+            ORDER BY author ASC
+            LIMIT 1) AS auth
+        ON auth.series=Series.name AND auth.series_year=Series.series_year
+        LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year, author)
+        ORDER BY author ASC, Series.name ASC, Series.series_year ASC
+        """
+    elif (sort.category == 'authors' and sort.direction == 'DES'):
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, author
+        FROM Series
+        LEFT JOIN
+            (SELECT * 
+            FROM Authorship
+            ORDER BY author ASC
+            LIMIT 1) AS auth
+        ON auth.series=Series.name AND auth.series_year=Series.series_year
+        LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year, author)
+        ORDER BY author DESC, Series.name ASC, Series.series_year ASC
+        """
+    else:
+        print("else")
+        sql = """
+        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
+        FROM Series LEFT JOIN Volumes
+        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
+        GROUP BY (Series.name, Series.series_year)
+        ORDER BY name ASC, series_year ASC
+        """
+    cursor.execute(sql,)
     results = cursor.fetchall()
     series = []
     for r in results:
         series.append(Series(r))
+    print(series[0].name)
+    print(series[2].name)
 
     final_results = []
     for s in series:

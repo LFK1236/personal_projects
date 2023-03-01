@@ -70,3 +70,6 @@ VALUES
     ('Shonen', 'One Piece', '2003'),
     ('Shonen', 'Fullmetal Alchemist', '2018')
 ;
+
+INSERT INTO Settings(sort_category, sort_direction)
+VALUES ('name, series_year', 'ASC');

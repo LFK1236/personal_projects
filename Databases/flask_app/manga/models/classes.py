@@ -49,3 +49,8 @@ class Demographic(tuple):
     def __init__(self, demo_data):
         self.demo = demo_data[0]
         self.desc = demo_data[1]
+
+class Sort_Settings(tuple):
+    def __init__(self, sort_info):
+        self.category = sort_info[0]
+        self.direction = sort_info[1]

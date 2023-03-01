@@ -8,13 +8,15 @@ from manga.models.demographics import connect_Demographic, disconnect_Demographi
 from manga.models.publishers import connect_Publisher, disconnect_Publisher
 from manga.models.series import select_Series_by_Language, select_Series_by_Demographic
 from manga.models.series import select_Series_by_Publisher, series_Update_Edition, series_Update_Rating
+from manga.models.settings import settings_sort, update_sort
 
 Series = Blueprint('Manga Series', __name__)
 
 @Series.route('/series', methods=['GET'])
 def series():
-    series = select_Series()
-    return render_template('series.html', title='Manga Series', series=series)
+    sort = settings_sort()
+    series = select_Series(sort)
+    return render_template('series.html', title='Manga Series', series=series, sort=sort)
 
 @Series.route('/series/add', methods=['GET', 'POST'])
 def add():
@@ -185,3 +187,8 @@ def series_Disconnect_Publisher():
     from_url = request.form['from_url']
     disconnect_Publisher(series, series_year)
     return redirect(from_url)
+
+@Series.route('/series/sort/<string:category>', methods=['GET'])
+def sort_by_name(category):
+    update_sort(category)
+    return redirect('/series')
