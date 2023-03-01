@@ -3,89 +3,42 @@ from psycopg2 import sql
 
 from manga.models.classes import Series, Series_Full, Series_with_Authors
 
-def select_Series(sort):
-    cursor = connection.cursor()
+def Order_By(sort):
     if (sort.category == 'name, series_year' and sort.direction == 'DES'):
-        print("desc")
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-        FROM Series LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year)
+        return """ 
         ORDER BY name DESC, series_year DESC
         """
     elif (sort.category == 'rating' and sort.direction == 'ASC'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-        FROM Series LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year)
+        return """ 
         ORDER BY Series.rating ASC, name ASC, series_year ASC
         """
     elif (sort.category == 'rating' and sort.direction == 'DES'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-        FROM Series LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year)
-        ORDER BY Series.rating DESC, name DESC, series_year DESC
+        return """ 
+        ORDER BY Series.rating DESC, name ASC, series_year ASC
         """
     elif (sort.category == 'owned' and sort.direction == 'ASC'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-        FROM Series LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year)
+        return """ 
         ORDER BY COUNT(entry) ASC, name ASC, series_year ASC
         """
     elif (sort.category == 'owned' and sort.direction == 'DES'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
-        FROM Series LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year)
-        ORDER BY COUNT(entry) DESC, name DESC, series_year DESC
-        """
-    # The author sorts do not work as intended.
-    elif (sort.category == 'authors' and sort.direction == 'ASC'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, author
-        FROM Series
-        LEFT JOIN
-            (SELECT * 
-            FROM Authorship
-            ORDER BY author ASC
-            LIMIT 1) AS auth
-        ON auth.series=Series.name AND auth.series_year=Series.series_year
-        LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year, author)
-        ORDER BY author ASC, Series.name ASC, Series.series_year ASC
-        """
-    elif (sort.category == 'authors' and sort.direction == 'DES'):
-        sql = """
-        SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, author
-        FROM Series
-        LEFT JOIN
-            (SELECT * 
-            FROM Authorship
-            ORDER BY author ASC
-            LIMIT 1) AS auth
-        ON auth.series=Series.name AND auth.series_year=Series.series_year
-        LEFT JOIN Volumes
-        ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
-        GROUP BY (Series.name, Series.series_year, author)
-        ORDER BY author DESC, Series.name ASC, Series.series_year ASC
+        return """ 
+        ORDER BY COUNT(entry) DESC, name ASC, series_year ASC
         """
     else:
-        print("else")
-        sql = """
+        return """ 
+        ORDER BY name ASC, series_year ASC
+        """
+
+def select_Series(sort):
+    cursor = connection.cursor()
+    sql = """
         SELECT Series.name, Series.series_year, COUNT(entry), Series.rating
         FROM Series LEFT JOIN Volumes
         ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
         GROUP BY (Series.name, Series.series_year)
-        ORDER BY name ASC, series_year ASC
-        """
+    """
+    sql += Order_By(sort)
+
     cursor.execute(sql,)
     results = cursor.fetchall()
     series = []
@@ -151,16 +104,16 @@ def select_Specific_Series(input):
         series.append(Series_Full(s))
     return series
 
-def select_Series_by_Author(name):
+def select_Series_by_Author(name, sort):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Authorship.series, Authorship.series_year, COUNT(entry), Series.rating FROM Authorship
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating FROM Authorship
     LEFT JOIN Volumes ON Authorship.series=Volumes.name AND Authorship.series_year=Volumes.series_year
     LEFT JOIN Series ON Series.name=Authorship.series AND Series.series_year=Authorship.series_year
     WHERE author=%s
-    GROUP BY (Authorship.series, Authorship.series_year, Series.rating)
-    ORDER BY Authorship.series, Authorship.series_year ASC
-    """)
+    GROUP BY (Series.name, Series.series_year, Series.rating)
+    """
+    + Order_By(sort))
     cursor.execute(user_sql, (name,))
     results = cursor.fetchall()
     series = []
@@ -183,16 +136,16 @@ def select_Series_by_Author(name):
     cursor.close()
     return final_results
 
-def select_Series_by_Genre(genre):
+def select_Series_by_Genre(genre, sort):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Genre_Of.series, Genre_Of.series_year, COUNT(entry), Series.rating FROM Genre_Of
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating FROM Genre_Of
     LEFT JOIN Volumes ON Genre_Of.series=Volumes.name AND Genre_Of.series_year=Volumes.series_year
     LEFT JOIN Series ON Series.name=Genre_Of.series AND Series.series_year=Genre_Of.series_year
     WHERE genre=%s
-    GROUP BY (Genre_Of.series, Genre_Of.series_year, Series.rating)
-    ORDER BY Genre_Of.series, Genre_Of.series_year ASC
-    """)
+    GROUP BY (Series.name, Series.series_year, Series.rating)
+    """
+    + Order_By(sort))
     cursor.execute(user_sql, (genre,))
     results = cursor.fetchall()
     series = []
@@ -215,16 +168,16 @@ def select_Series_by_Genre(genre):
     cursor.close()
     return final_results
 
-def select_Series_by_Language(language):
+def select_Series_by_Language(language, sort):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Language_Of.series, Language_Of.series_year, COUNT(entry), Series.rating FROM Language_Of
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating FROM Language_Of
     LEFT JOIN Volumes ON Language_Of.series=Volumes.name AND Language_Of.series_year=Volumes.series_year
     LEFT JOIN Series ON Series.name=Language_Of.series AND Series.series_year=Language_Of.series_year
     WHERE language=%s
-    GROUP BY (Language_Of.series, Language_Of.series_year, Series.rating)
-    ORDER BY Language_Of.series, Language_Of.series_year ASC
-    """)
+    GROUP BY (Series.name, Series.series_year, Series.rating)
+    """
+    + Order_By(sort))
     cursor.execute(user_sql, (language,))
     results = cursor.fetchall()
     series = []
@@ -247,16 +200,16 @@ def select_Series_by_Language(language):
     cursor.close()
     return final_results
 
-def select_Series_by_Demographic(demographic):
+def select_Series_by_Demographic(demographic, sort):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Demographic_Of.series, Demographic_Of.series_year, COUNT(entry), Series.rating FROM Demographic_Of
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating FROM Demographic_Of
     LEFT JOIN Volumes ON Demographic_Of.series=Volumes.name AND Demographic_Of.series_year=Volumes.series_year
     LEFT JOIN Series ON Series.name=Demographic_Of.series AND Series.series_year=Demographic_Of.series_year
     WHERE demo=%s
-    GROUP BY (Demographic_Of.series, Demographic_Of.series_year, Series.rating)
-    ORDER BY Demographic_Of.series, Demographic_Of.series_year ASC
-    """)
+    GROUP BY (Series.name, Series.series_year, Series.rating)
+    """
+    + Order_By(sort))
     cursor.execute(user_sql, (demographic,))
     results = cursor.fetchall()
     series = []
@@ -279,16 +232,16 @@ def select_Series_by_Demographic(demographic):
     cursor.close()
     return final_results
 
-def select_Series_by_Publisher(publisher):
+def select_Series_by_Publisher(publisher, sort):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    SELECT Publisher_Of.series, Publisher_Of.series_year, COUNT(entry), Series.rating FROM Publisher_Of
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating FROM Publisher_Of
     LEFT JOIN Volumes ON Publisher_Of.series=Volumes.name AND Publisher_Of.series_year=Volumes.series_year
     LEFT JOIN Series ON Series.name=Publisher_Of.series AND Series.series_year=Publisher_Of.series_year
     WHERE publisher=%s
-    GROUP BY (Publisher_Of.series, Publisher_Of.series_year, Series.rating)
-    ORDER BY Publisher_Of.series, Publisher_Of.series_year ASC
-    """)
+    GROUP BY (Series.name, Series.series_year, Series.rating)
+    """
+    + Order_By(sort))
     cursor.execute(user_sql, (publisher,))
     results = cursor.fetchall()
     series = []
