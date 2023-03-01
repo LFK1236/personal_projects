@@ -31,3 +31,6 @@ app.register_blueprint(Publishers)
 
 from manga.routes.edit import Edit
 app.register_blueprint(Edit)
+
+from manga.routes.search import Search
+app.register_blueprint(Search)
