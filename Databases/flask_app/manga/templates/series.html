@@ -10,6 +10,9 @@
                 <th scope="col">Authors</th>
                 <th scope="col"><a href="/series/sort/owned">Owned</a></th>
                 <th scope="col"><a href="/series/sort/rating">Rating</a></th>
+                <th scope="col"><a href="/series/sort/language">Language</a></th>
+                <th scope="col"><a href="/series/sort/demographic">Demographic</a></th>
+                <th scope="col"><a href="/series/sort/publisher">Publisher</a></th>
             </tr>
         </thead>
         <tbody>
@@ -29,15 +32,19 @@
                     {% endif %}
                 </td>
                 <td>
+                    <a href="/series/filter/language:{{s.language}}">{{s.language}}</a>
+                </td>
+                <td>
+                    <a href="/series/filter/demographic:{{s.demographic}}">{{s.demographic}}</a>
+                </td>
+                <td>
+                    <a href="/series/filter/publisher:{{s.publisher}}">{{s.publisher}}</a>
+                </td>
+                <td>
                     <form action="/series/details/{{s.name}}/{{s.series_year}}" method="post">
                         <input type="hidden" value="{{s.name}}" name="name">
                         <input type="hidden" value="{{s.series_year}}" name="series_year">
                         <input type="submit" value="...">
-                    </form>
-                    <form action="/series/delete" method="post">
-                        <input type="hidden" value="{{s.name}}" name="name">
-                        <input type="hidden" value="{{s.series_year}}" name="series_year">
-                        <input type="submit" value="X">
                     </form>
                 </td>
             </tr>

@@ -16,7 +16,7 @@
                 <td>{{d.demo}}</td>
                 <td>{{d.desc}}</td>
                 <td>
-                    <form action="/series/demographic:{{d.demo}}" method="post">
+                    <form action="/series/filter/demographic:{{d.demo}}" method="post">
                         <input type="hidden" value="{{d.demo}}" name="demographic">
                         <input type="submit" value="See series">
                     </form>

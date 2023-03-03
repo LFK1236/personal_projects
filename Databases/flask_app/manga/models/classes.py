@@ -17,6 +17,9 @@ class Series(tuple):
         self.series_year = series_data[1]
         self.volumes = series_data[2]
         self.rating = series_data[3]
+        self.language = series_data[4]
+        self.demographic = series_data[5]
+        self.publisher = series_data[6]
 
 class Series_with_Authors():
     def __init__(self, key, authors):
@@ -24,6 +27,9 @@ class Series_with_Authors():
         self.series_year = key[1]
         self.volumes = key[2]
         self.rating = key[3]
+        self.language = key[4]
+        self.demographic = key[5]
+        self.publisher = key[6]
         self.authors = authors
 
 class Author(tuple):
