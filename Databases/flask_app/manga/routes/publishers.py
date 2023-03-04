@@ -16,7 +16,7 @@ def add():
 
 @Publishers.route('/publishers/delete', methods=['POST'])
 def delete():
-    publisher = request.form['publisher']
+    publisher = request.form['key']
     delete_Publisher(publisher)
     return redirect('/publishers')
 

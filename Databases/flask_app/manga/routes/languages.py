@@ -16,7 +16,7 @@ def add():
 
 @Languages.route('/languages/delete', methods=['POST'])
 def delete():
-    language = request.form['language']
+    language = request.form['key']
     delete_Language(language)
     return redirect('/languages')
 

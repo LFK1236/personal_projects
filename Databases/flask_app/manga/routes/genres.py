@@ -16,7 +16,7 @@ def add():
 
 @Genres.route('/genres/delete', methods=['POST'])
 def delete():
-    genre = request.form['genre_name']
+    genre = request.form['key']
     delete_Genre(genre)
     return redirect('/genres')
 

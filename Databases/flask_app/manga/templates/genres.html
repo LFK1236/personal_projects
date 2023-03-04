@@ -3,11 +3,12 @@
 <div class="content-section">
     {% include "header.html" %}
     <p>Genres:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Genre</th>
                 <th scope="col">Series</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +22,6 @@
                         <input type="hidden" value="{{g.genre}}" name="data">
                         <input type="submit" value="Edit">
                     </form>
-                    <form action="/genres/delete" method="post">
-                        <input type="hidden" value="{{g.genre}}" name="genre_name">
-                        <input type="submit" value="X">
-                    </form>
                 </td>
             </tr>
             {% endfor %}
@@ -32,10 +29,11 @@
     </table>
 
     <p>Add genre:</p>
-    <table class="table table-striped">
+    <table class="table formula">
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>

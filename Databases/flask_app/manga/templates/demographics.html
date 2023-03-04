@@ -3,12 +3,13 @@
 <div class="content-section">
     {% include "header.html" %}
     <p>Demographics:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Series</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -24,10 +25,6 @@
                         <input type="hidden" value="{{d.desc}}" name="desc">
                         <input type="submit" value="Edit">
                     </form>
-                    <form action="/demographics/delete" method="post">
-                        <input type="hidden" value="{{d.demo}}" name="demographic">
-                        <input type="submit" value="X">
-                    </form>
                 </td>
             </tr>
             {% endfor %}
@@ -35,11 +32,12 @@
     </table>
 
     <p>Add demographic:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>

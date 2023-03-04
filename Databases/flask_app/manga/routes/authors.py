@@ -19,7 +19,7 @@ def add():
 @Authors.route('/authors/delete', methods=['GET', 'POST'])
 def delete():
     if request.method == 'POST':
-        author_info = [request.form['name']]
+        author_info = [request.form['key']]
         if author_info[0] != None:
             delete_Author(author_info[0])
     return redirect('/authors')

@@ -3,7 +3,7 @@
 <div class="content-section">
     {% include "header.html" %}
     <p>Series:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col"><a href="/series/sort/name, series_year">Series Name</a></th>
@@ -13,6 +13,7 @@
                 <th scope="col"><a href="/series/sort/language">Language</a></th>
                 <th scope="col"><a href="/series/sort/demographic">Demographic</a></th>
                 <th scope="col"><a href="/series/sort/publisher">Publisher</a></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -53,15 +54,16 @@
     </table>
 
     <p>Add series:</p>
-    <table class="table table-striped">
+    <table class="table formula">
         <thead>
             <tr>
                 <th scope="col">Name<span style="color:red">*</span></th>
                 <th scope="col">Year<span style="color:red">*</span></th>
-                <th scope="col">Author (only one, can add more later)</th>
+                <th scope="col">Author (max 1)</th>
                 <th scope="col">Language</th>
                 <th scope="col">Demographic</th>
                 <th scope="col">Publisher</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
