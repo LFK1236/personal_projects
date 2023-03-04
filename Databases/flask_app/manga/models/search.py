@@ -21,7 +21,6 @@ def search(term, sort):
         term_list.append(int_term)
     else:
         where_rating = ""
-        
 
     user_sql = sql.SQL ("""
     SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, language, demo, publisher
