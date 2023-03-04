@@ -8,6 +8,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Series</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
             <tr>
                 <td>{{d.demo}}</td>
                 <td>{{d.desc}}</td>
+                <td>{{d.series_count}}</td>
                 <td>
                     <form action="/series/filter/demographic:{{d.demo}}" method="post">
                         <input type="hidden" value="{{d.demo}}" name="demographic">

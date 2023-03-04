@@ -13,7 +13,7 @@
         <tbody>
             {% for n in names %}
             <tr>
-                <td>{{n.name}}</td>
+                <td><a href="/series/filter/author:{{n.name}}">{{n.name}}</a></td>
                 <td>
                     <form action="/authors/details/{{n.name}}" method="post">
                         <input type="submit" value="...">
@@ -75,7 +75,7 @@
             <tr>
                 {% if series.language != None and series.language != "" %}
                     <td>
-                        {{series.language}}
+                        <a href="/series/filter/language:{{series.language}}">{{series.language}}</a>
                     </td>
                     <td>
                         <form action="/series/language:{{series.language}}" method="post">
@@ -151,7 +151,7 @@
             <tr>
                 {% if series.demographic != None and series.demographic != "" %}
                     <td>
-                        {{series.demographic}}
+                        <a href="/series/filter/demographic:{{series.demographic}}">{{series.demographic}}</a>
                     </td>
                     <td>
                         <form action="/series/demographic:{{series.demographic}}" method="post">
@@ -191,7 +191,7 @@
             <tr>
                 {% if series.publisher != None and series.publisher != "" %}
                     <td>
-                        {{series.publisher}}
+                        <a href="/series/filter/publisher:{{series.publisher}}">{{series.publisher}}</a>
                     </td>
                     <td>
                         <form action="/series/publisher:{{series.publisher}}" method="post">
@@ -230,7 +230,9 @@
         <tbody>
             {% for g in genres %}
             <tr>
-                <td>{{g}}</td>
+                <td>
+                    <a href="/series/filter/genre:{{g}}">{{g}}</a>
+                </td>
                 <td>
                     <form action="/series/genre:{{g}}" method="post">
                         <input type="submit" value="...">

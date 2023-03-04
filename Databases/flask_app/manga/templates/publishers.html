@@ -4,10 +4,17 @@
     {% include "header.html" %}
     <p>Publishers:</p>
     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Publisher</th>
+                <th scope="col">Series</th>
+            </tr>
+        </thead>
         <tbody>
             {% for p in publishers %}
             <tr>
-                <td>{{p}}</td>
+                <td>{{p.publisher}}</td>
+                <td>{{p.series_count}}</td>
                 <td>
                     <form action="/series/filter/publisher:{{p}}" method="post">
                         <input type="hidden" value="{{p}}" name="publisher">

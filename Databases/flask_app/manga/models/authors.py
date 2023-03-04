@@ -1,7 +1,7 @@
 from manga import connection
 from psycopg2 import sql
 
-from manga.models.classes import Author, Authors
+from manga.models.classes import Author, Author_with_Series_Count
 from manga.models.series import check_Series_Exists, add_Series
 
 def select_Specific_Authors(name):
@@ -31,7 +31,11 @@ def add_Author(name):
 def select_Authors():
     cursor = connection.cursor()
     sql = """
-    SELECT name FROM Authors
+    SELECT name, Count(series)
+    FROM Authors
+    LEFT JOIN Authorship
+        ON Authors.name=Authorship.author
+    GROUP BY (name)
     ORDER BY name ASC
     """
     cursor.execute(sql)
@@ -39,7 +43,7 @@ def select_Authors():
     cursor.close()
     authors = []
     for author in results:
-        authors.append(Author(author))
+        authors.append(Author_with_Series_Count(author))
     return authors
 
 def delete_Author(name):
@@ -63,7 +67,7 @@ def select_Authors_of_Series(input):
     cursor.close()
     names = []
     for author in results:
-        names.append(Authors(author))
+        names.append(Author(author))
     return names
 
 def delete_Author_Connection(input):

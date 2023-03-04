@@ -47,14 +47,16 @@ class Series_Full(tuple):
         self.demographic = series_data[6]
         self.publisher = series_data[7]
 
-class Authors(tuple):
+class Author_with_Series_Count(tuple):
     def __init__(self, author_data):
-        self.name = author_data[0]
+        self.author = author_data[0]
+        self.series_count = author_data[1]
 
 class Demographic(tuple):
     def __init__(self, demo_data):
         self.demo = demo_data[0]
         self.desc = demo_data[1]
+        self.series_count = demo_data[2]
 
 class Sort_Settings(tuple):
     def __init__(self, sort_info):
@@ -65,3 +67,13 @@ class Language(tuple):
     def __init__(self, lang_data):
         self.language = lang_data[0]
         self.series_count = lang_data[1]
+
+class Publisher(tuple):
+    def __init__(self, pub_data):
+        self.publisher = pub_data[0]
+        self.series_count = pub_data[1]
+
+class Genre(tuple):
+    def __init__(self, genre_data):
+        self.genre = genre_data[0]
+        self.series_count = genre_data[1]

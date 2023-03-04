@@ -1,6 +1,8 @@
 from manga import connection
 from psycopg2 import sql
 
+from manga.models.classes import Publisher
+
 def add_Publisher(publisher):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
@@ -24,15 +26,19 @@ def delete_Publisher(publisher):
 def select_Publishers():
     cursor = connection.cursor()
     sql = """
-    SELECT publisher FROM Publishers
-    ORDER BY publisher ASC
+    SELECT Publishers.publisher, COUNT(series)
+    FROM Publishers
+    LEFT JOIN Publisher_Of
+        ON Publishers.publisher=Publisher_Of.publisher
+    GROUP BY (Publishers.publisher)
+    ORDER BY Publishers.publisher ASC
     """
     cursor.execute(sql)
     results = cursor.fetchall()
     cursor.close()
     publishers = []
     for publisher in results:
-        publishers.append(publisher[0])
+        publishers.append(Publisher(publisher))
     return publishers
 
 def connect_Publisher(series, series_year, publisher):

@@ -20,7 +20,7 @@
             <tr>
                 <td><a href="/series/details/{{s.name}}/{{s.series_year}}">{{s.name}} ({{s.series_year}})</a></td>
                 <td>{% for a in s.authors %}
-                    <a href="/authors/details/{{a}}">{{a}}</a><br>
+                    <a href="/series/filter/author:{{a}}">{{a}}</a><br>
                     {% endfor %}
                 </td>
                 <td>

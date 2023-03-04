@@ -8,8 +8,7 @@ def Filter(filter_type, filter):
         return ("""
         LEFT JOIN Genre_Of
             ON Series.name=Genre_Of.series AND Series.series_year=Genre_Of.series_year
-        WHERE genre='
-        """ + filter + "'")
+        WHERE genre='""" + filter + "'")
     elif (filter_type == 'demographic'):
         return ("WHERE demo='" + filter + "'")
     elif (filter_type == '' or filter_type == None):

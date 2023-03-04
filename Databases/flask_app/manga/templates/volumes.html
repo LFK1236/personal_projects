@@ -17,7 +17,7 @@
             <td>{{v.name}} ({{v.series_year}})</td>
             <td>{{v.entry}}</td>
             <td>{% for a in v.authors %}
-                {{a}}<br>
+                <a href="/series/filter/author:{{a}}">{{a}}</a><br>
                 {% endfor %}</td>
             <td>
             <form action="/series/details/{{v.name}}/{{v.series_year}}" method="post">

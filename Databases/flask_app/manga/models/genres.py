@@ -1,18 +1,24 @@
 from manga import connection
 from psycopg2 import sql
 
+from manga.models.classes import Genre
+
 def select_Genres():
     cursor = connection.cursor()
     sql = """
-    SELECT genre FROM Genres
-    ORDER BY genre
+    SELECT Genres.genre, COUNT(series)
+    FROM Genres
+    LEFT JOIN Genre_Of
+        ON Genres.genre=Genre_Of.genre
+    GROUP BY (Genres.genre)
+    ORDER BY Genres.genre
     """
     cursor.execute(sql)
     genres = cursor.fetchall()
     cursor.close()
     genre_list = []
     for g in genres:
-        genre_list.append(g)
+        genre_list.append(Genre(g))
     return genre_list
 
 def add_Genre(name):

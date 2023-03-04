@@ -26,8 +26,12 @@ def delete_Demographic(demographic):
 def select_Demographics():
     cursor = connection.cursor()
     sql = """
-    SELECT demo, description FROM Demographics
-    ORDER BY demo ASC
+    SELECT Demographics.demo, description, COUNT(series)
+    FROM Demographics
+    LEFT JOIN Demographic_Of
+        ON Demographics.demo=Demographic_Of.demo
+    GROUP BY (Demographics.demo)
+    ORDER BY Demographics.demo ASC
     """
     cursor.execute(sql)
     results = cursor.fetchall()

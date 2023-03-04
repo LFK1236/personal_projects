@@ -7,14 +7,16 @@
         <thead>
             <tr>
                 <th scope="col">Author</th>
+                <th scope="col">Series</th>
             </tr>
         </thead>
         <tbody>
             {% for a in authors %}
             <tr>
-                <td>{{a.name}}</td>
+                <td>{{a.author}}</td>
+                <td>{{a.series_count}}</td>
                 <td>
-                    <form action="/series/filter/author:{{a.name}}" method="post">
+                    <form action="/series/filter/author:{{a.author}}" method="post">
                         <input type="submit" value="...">
                     </form>
                     <form action="/edit" method="post">
@@ -23,7 +25,7 @@
                         <input type="submit" value="Edit">
                     </form>
                     <form action="/authors/delete" method="post">
-                        <input type="hidden" value="{{a.name}}" name="name">
+                        <input type="hidden" value="{{a.author}}" name="name">
                         <input type="submit" value="X">
                     </form>
                 </td>
