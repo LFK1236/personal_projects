@@ -13,14 +13,15 @@ def Attempt_Rating(term):
 def search(term, sort):
     cursor = connection.cursor()
     vague_term = "%" + term + "%"
+    term_list = [vague_term, term, vague_term, vague_term, vague_term, vague_term, vague_term]
     int_term = Attempt_Rating(term)
     if (int_term != None):
         where_rating = """
         OR Series.rating = %s"""
-        term_list = (vague_term, term, vague_term, vague_term, vague_term, vague_term, vague_term, int_term)
+        term_list.append(int_term)
     else:
         where_rating = ""
-        term_list = (vague_term, term, vague_term, vague_term, vague_term, vague_term, vague_term)
+        
 
     user_sql = sql.SQL ("""
     SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, language, demo, publisher
