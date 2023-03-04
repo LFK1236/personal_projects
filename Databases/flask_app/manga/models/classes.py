@@ -60,3 +60,8 @@ class Sort_Settings(tuple):
     def __init__(self, sort_info):
         self.category = sort_info[0]
         self.direction = sort_info[1]
+
+class Language(tuple):
+    def __init__(self, lang_data):
+        self.language = lang_data[0]
+        self.series_count = lang_data[1]

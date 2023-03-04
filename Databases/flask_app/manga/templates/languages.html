@@ -4,10 +4,17 @@
     {% include "header.html" %}
     <p>Languages:</p>
     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Series</th>
+            </tr>
+        </thead>
         <tbody>
             {% for l in languages %}
             <tr>
-                <td>{{l}}</td>
+                <td>{{l.language}}</td>
+                <td>{{l.series_count}}</td>
                 <td>
                     <form action="/series/filter/language:{{l}}" method="post">
                         <input type="hidden" value="{{l}}" name="language">

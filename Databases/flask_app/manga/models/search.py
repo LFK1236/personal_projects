@@ -7,7 +7,7 @@ from manga.models.classes import Series, Series_with_Authors
 def Attempt_Rating(term):
     try:
         return int(term)
-    except ValueError or TypeError:
+    except ValueError:
         return None
 
 def search(term, sort):
@@ -23,7 +23,7 @@ def search(term, sort):
         term_list = (vague_term, term, vague_term, vague_term, vague_term)
 
     user_sql = sql.SQL ("""
-    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, language, demographic, publisher
+    SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, language, demo, publisher
     FROM Series
         LEFT JOIN Volumes
             ON Series.name=Volumes.name AND Series.series_year=Volumes.series_year
@@ -36,12 +36,12 @@ def search(term, sort):
     WHERE Series.name LIKE %s
         OR Series.series_year=%s
         OR language LIKE %s
-        OR demographic LIKE %s
+        OR demo LIKE %s
         OR publisher LIKE %s
     """
     + where_rating
     + """
-    GROUP BY (Series.name, Series.series_year, Series.rating, language, demographic, publisher)"""
+    GROUP BY (Series.name, Series.series_year, Series.rating, language, demo, publisher)"""
     + Order_By(sort))
 
     cursor.execute(user_sql, term_list)
