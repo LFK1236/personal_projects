@@ -17,10 +17,10 @@ def search(term, sort):
     if (int_term != None):
         where_rating = """
         OR Series.rating = %s"""
-        term_list = (vague_term, term, vague_term, vague_term, vague_term, int_term)
+        term_list = (vague_term, term, vague_term, vague_term, vague_term, vague_term, vague_term, int_term)
     else:
         where_rating = ""
-        term_list = (vague_term, term, vague_term, vague_term, vague_term)
+        term_list = (vague_term, term, vague_term, vague_term, vague_term, vague_term, vague_term)
 
     user_sql = sql.SQL ("""
     SELECT Series.name, Series.series_year, COUNT(entry), Series.rating, language, demo, publisher
@@ -33,11 +33,17 @@ def search(term, sort):
             ON Series.name=Demographic_Of.series AND Series.series_year=Demographic_Of.series_year
         LEFT JOIN Publisher_Of
             ON Series.name=Publisher_Of.series AND Series.series_year=Publisher_Of.series_year
+        LEFT JOIN Genre_Of
+            ON Series.name=Genre_Of.series AND Series.series_year=Genre_Of.series_year
+        LEFT JOIN Authorship
+            ON Series.name=Authorship.series AND Series.series_year=Authorship.series_year
     WHERE Series.name LIKE %s
         OR Series.series_year=%s
         OR language LIKE %s
         OR demo LIKE %s
         OR publisher LIKE %s
+        OR genre LIKE %s
+        OR author LIKE %s
     """
     + where_rating
     + """
