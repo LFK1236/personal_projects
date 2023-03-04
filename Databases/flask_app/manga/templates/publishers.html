@@ -13,20 +13,16 @@
         <tbody>
             {% for p in publishers %}
             <tr>
-                <td>{{p.publisher}}</td>
+                <td><a href="/series/filter/publisher:{{p.publisher}}">{{p.publisher}}</a></td>
                 <td>{{p.series_count}}</td>
                 <td>
-                    <form action="/series/filter/publisher:{{p}}" method="post">
-                        <input type="hidden" value="{{p}}" name="publisher">
-                        <input type="submit" value="See series">
-                    </form>
                     <form action="/edit" method="post">
                         <input type="hidden" value="Publishers" name="table">
-                        <input type="hidden" value="{{p}}" name="data">
+                        <input type="hidden" value="{{p.publisher}}" name="data">
                         <input type="submit" value="Edit">
                     </form>
                     <form action="/publishers/delete" method="post">
-                        <input type="hidden" value="{{p}}" name="publisher">
+                        <input type="hidden" value="{{p.publisher}}" name="publisher">
                         <input type="submit" value="X">
                     </form>
                 </td>

@@ -13,20 +13,16 @@
         <tbody>
             {% for g in genres %}
             <tr>
-                <td>{{g.genre}}</td>
+                <td><a href="/series/filter/genre:{{g.genre}}">{{g.genre}}</a></td>
                 <td>{{g.series_count}}</td>
                 <td>
-                    <form action="/series/filter/genre:{{g[0]}}" method="post">
-                        <input type="hidden" value="{{g[0]}}" name="genre_name">
-                        <input type="submit" value="See series">
-                    </form>
                     <form action="/edit" method="post">
                         <input type="hidden" value="Genres" name="table">
-                        <input type="hidden" value="{{g[0]}}" name="data">
+                        <input type="hidden" value="{{g.genre}}" name="data">
                         <input type="submit" value="Edit">
                     </form>
                     <form action="/genres/delete" method="post">
-                        <input type="hidden" value="{{g[0]}}" name="genre_name">
+                        <input type="hidden" value="{{g.genre}}" name="genre_name">
                         <input type="submit" value="X">
                     </form>
                 </td>

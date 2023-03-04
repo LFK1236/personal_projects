@@ -15,9 +15,6 @@
             <tr>
                 <td><a href="/series/filter/author:{{n.name}}">{{n.name}}</a></td>
                 <td>
-                    <form action="/authors/details/{{n.name}}" method="post">
-                        <input type="submit" value="...">
-                    </form>
                     <form action="/series/disconnect/author" method="post">
                         <input type="hidden" value="{{series.name}}" name="series_name">
                         <input type="hidden" value="{{series.series_year}}" name="series_year">
@@ -78,10 +75,6 @@
                         <a href="/series/filter/language:{{series.language}}">{{series.language}}</a>
                     </td>
                     <td>
-                        <form action="/series/language:{{series.language}}" method="post">
-                            <input type="hidden" value="{{series.language}}" name="language">
-                            <input type="submit" value="...">
-                        </form>
                         <form action="/../series/language/disconnect" method="post">
                             <input type="hidden" value="{{series.name}}" name="series">
                             <input type="hidden" value="{{series.series_year}}" name="series_year">
@@ -154,10 +147,6 @@
                         <a href="/series/filter/demographic:{{series.demographic}}">{{series.demographic}}</a>
                     </td>
                     <td>
-                        <form action="/series/demographic:{{series.demographic}}" method="post">
-                            <input type="hidden" value="{{series.demographic}}" name="demographic">
-                            <input type="submit" value="...">
-                        </form>
                         <form action="/../series/demographic/disconnect" method="post">
                             <input type="hidden" value="{{series.name}}" name="series">
                             <input type="hidden" value="{{series.series_year}}" name="series_year">
@@ -194,10 +183,6 @@
                         <a href="/series/filter/publisher:{{series.publisher}}">{{series.publisher}}</a>
                     </td>
                     <td>
-                        <form action="/series/publisher:{{series.publisher}}" method="post">
-                            <input type="hidden" value="{{series.publisher}}" name="publisher">
-                            <input type="submit" value="...">
-                        </form>
                         <form action="/../series/publisher/disconnect" method="post">
                             <input type="hidden" value="{{series.name}}" name="series">
                             <input type="hidden" value="{{series.series_year}}" name="series_year">
@@ -234,9 +219,6 @@
                     <a href="/series/filter/genre:{{g}}">{{g}}</a>
                 </td>
                 <td>
-                    <form action="/series/genre:{{g}}" method="post">
-                        <input type="submit" value="...">
-                    </form>
                     <form action="/series/disconnect/genre" method="post">
                         <input type="hidden" value="{{series.name}}" name="series_name">
                         <input type="hidden" value="{{series.series_year}}" name="series_year">

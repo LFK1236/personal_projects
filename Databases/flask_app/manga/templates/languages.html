@@ -13,20 +13,16 @@
         <tbody>
             {% for l in languages %}
             <tr>
-                <td>{{l.language}}</td>
+                <td><a href="/series/filter/language:{{l.language}}">{{l.language}}</a></td>
                 <td>{{l.series_count}}</td>
                 <td>
-                    <form action="/series/filter/language:{{l}}" method="post">
-                        <input type="hidden" value="{{l}}" name="language">
-                        <input type="submit" value="See series">
-                    </form>
                     <form action="/edit" method="post">
                         <input type="hidden" value="Languages" name="table">
-                        <input type="hidden" value="{{l}}" name="data">
+                        <input type="hidden" value="{{l.language}}" name="data">
                         <input type="submit" value="Edit">
                     </form>
                     <form action="/languages/delete" method="post">
-                        <input type="hidden" value="{{l}}" name="language">
+                        <input type="hidden" value="{{l.language}}" name="language">
                         <input type="submit" value="X">
                     </form>
                 </td>

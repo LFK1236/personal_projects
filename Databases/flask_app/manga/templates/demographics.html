@@ -14,14 +14,10 @@
         <tbody>
             {% for d in demographics %}
             <tr>
-                <td>{{d.demo}}</td>
+                <td><a href="/series/filter/demographic:{{d.demo}}">{{d.demo}}</a></td>
                 <td>{{d.desc}}</td>
                 <td>{{d.series_count}}</td>
                 <td>
-                    <form action="/series/filter/demographic:{{d.demo}}" method="post">
-                        <input type="hidden" value="{{d.demo}}" name="demographic">
-                        <input type="submit" value="See series">
-                    </form>
                     <form action="/edit" method="post">
                         <input type="hidden" value="Demographics" name="table">
                         <input type="hidden" value="{{d.demo}}" name="demo">
