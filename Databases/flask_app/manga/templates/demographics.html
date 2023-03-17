@@ -1,27 +1,29 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Demographics:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Series</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {% for d in demographics %}
             <tr>
-                <td>{{d.demo}}</td>
+                <td><a href="/series/filter/demographic:{{d.demo}}">{{d.demo}}</a></td>
                 <td>{{d.desc}}</td>
+                <td>{{d.series_count}}</td>
                 <td>
-                    <form action="/series/demographic:{{d.demo}}" method="post">
-                        <input type="hidden" value="{{d.demo}}" name="demographic">
-                        <input type="submit" value="See series">
-                    </form>
-                    <form action="/demographics/delete" method="post">
-                        <input type="hidden" value="{{d.demo}}" name="demographic">
-                        <input type="submit" value="X">
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Demographics" name="table">
+                        <input type="hidden" value="{{d.demo}}" name="demo">
+                        <input type="hidden" value="{{d.desc}}" name="desc">
+                        <input type="submit" value="Edit">
                     </form>
                 </td>
             </tr>
@@ -30,22 +32,23 @@
     </table>
 
     <p>Add demographic:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
           <form action="/demographics/add" method="post">
             <tr>
                 <td><input type="text" name="demographic" value="" class="wide"></td>
+                <td><input type="text" name="description" value="" class="wide"></td>
                 <td><input type="submit" value="Add demographic"></td>
             </tr>
         </form>
         </tbody>
-        </table>
-
-    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+    </table>
 </div>
 {% endblock content %}

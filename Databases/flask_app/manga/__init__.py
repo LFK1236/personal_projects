@@ -28,3 +28,9 @@ app.register_blueprint(Demographics)
 
 from manga.routes.publishers import Publishers
 app.register_blueprint(Publishers)
+
+from manga.routes.edit import Edit
+app.register_blueprint(Edit)
+
+from manga.routes.search import Search
+app.register_blueprint(Search)

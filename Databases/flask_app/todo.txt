@@ -1,12 +1,10 @@
-Count number of entries owned in a series.
-
 Buttons to filter based on user-defined criteria.
 
-Allow user to optionally input language when creating volume.
-Change default language.
+Functions and triggers instead of if/else statements to showcase more SQL knowledge, perhaps.
 
-Stored procedures instead of if/else statements
+Nicer-looking UI.
 
-Fallbacks in case of incorrect user input
+Allow user to sort series based on something other than name, year of series.
+    Click "Author" at the top of the table to sort by Author for example.
 
-Sanitise user input somehow?
+Search bar

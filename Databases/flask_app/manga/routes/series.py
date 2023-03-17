@@ -6,15 +6,18 @@ from manga.models.genres import add_Genre_Connection, select_Genres_by_Series, d
 from manga.models.languages import connect_Language, disconnect_Language
 from manga.models.demographics import connect_Demographic, disconnect_Demographic
 from manga.models.publishers import connect_Publisher, disconnect_Publisher
-from manga.models.series import select_Series_by_Language, select_Series_by_Demographic
+from manga.models.series import select_Series_by_Language, select_Series_by_Demographic, select_Series_by_Author
 from manga.models.series import select_Series_by_Publisher, series_Update_Edition, series_Update_Rating
+from manga.models.series import select_Series_by_Filter
+from manga.models.settings import settings_sort, update_sort
 
 Series = Blueprint('Manga Series', __name__)
 
 @Series.route('/series', methods=['GET'])
 def series():
-    series = select_Series()
-    return render_template('series.html', title='Manga Series', series=series)
+    sort = settings_sort()
+    series = select_Series(sort)
+    return render_template('series.html', title='Manga Series', series=series, sort=sort)
 
 @Series.route('/series/add', methods=['GET', 'POST'])
 def add():
@@ -64,11 +67,6 @@ def connect_genre():
         add_Genre_Connection(genre_connection)
     return redirect(from_url)
 
-@Series.route('/series/genre:<string:genre>', methods=['GET', 'POST'])
-def series_by_genre(genre):
-    series = select_Series_by_Genre(genre)
-    return render_template('series_by_filter.html', title='Series', series=series, filter=genre)
-
 @Series.route('/series/disconnect/genre', methods=['POST'])
 def disconnect_genre():
     if request.method == 'POST':
@@ -85,20 +83,14 @@ def disconnect_author():
         delete_Author_Connection(authorship)
     return redirect(from_url)
 
-@Series.route('/series/language:<string:language>', methods=['GET', 'POST'])
-def series_by_language(language):
-    series = select_Series_by_Language(language)
-    return render_template('series_by_filter.html', title='Series', series=series, filter=language)
-
-@Series.route('/series/demographic:<string:demographic>', methods=['GET', 'POST'])
-def series_by_demographic(demographic):
-    series = select_Series_by_Demographic(demographic)
-    return render_template('series_by_filter.html', title='Series', series=series, filter=demographic)
-
-@Series.route('/series/publisher:<string:publisher>', methods=['GET', 'POST'])
-def series_by_publisher(publisher):
-    series = select_Series_by_Publisher(publisher)
-    return render_template('series_by_filter.html', title='Series', series=series, filter=publisher)
+@Series.route('/series/filter/<string:filter_cat>:<string:filter>', methods=['GET', 'POST'])
+def series_by_filter(filter_cat, filter):
+    sort = settings_sort()
+    if (filter_cat == 'author'):
+        series = select_Series_by_Author(filter, sort)
+    else:
+        series = select_Series_by_Filter(filter_cat, filter, sort)
+    return render_template('series_by_filter.html', title='Series', series=series, filter=filter, filter_cat=filter_cat)
 
 @Series.route('/series/edition/add', methods=['POST'])
 def series_Add_Edition():
@@ -185,3 +177,13 @@ def series_Disconnect_Publisher():
     from_url = request.form['from_url']
     disconnect_Publisher(series, series_year)
     return redirect(from_url)
+
+@Series.route('/series/sort/<string:category>', methods=['GET'])
+def sort_by_name(category):
+    update_sort(category)
+    return redirect('/series')
+
+@Series.route('/series/sort/<string:filter>:<string:filter_string>/<string:category>', methods=['GET'])
+def sort_and_filter(category, filter_string, filter):
+    update_sort(category)
+    return redirect('/series/filter/' + filter + ':' + filter_string)

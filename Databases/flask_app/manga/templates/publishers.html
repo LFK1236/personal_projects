@@ -1,20 +1,26 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Publishers:</p>
-    <table class="table table-striped">
+    <table class="table list">
+        <thead>
+            <tr>
+                <th scope="col">Publisher</th>
+                <th scope="col">Series</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
         <tbody>
             {% for p in publishers %}
             <tr>
-                <td>{{p}}</td>
+                <td><a href="/series/filter/publisher:{{p.publisher}}">{{p.publisher}}</a></td>
+                <td>{{p.series_count}}</td>
                 <td>
-                    <form action="/series/publisher:{{p}}" method="post">
-                        <input type="hidden" value="{{p}}" name="publisher">
-                        <input type="submit" value="See series">
-                    </form>
-                    <form action="/publishers/delete" method="post">
-                        <input type="hidden" value="{{p}}" name="publisher">
-                        <input type="submit" value="X">
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Publishers" name="table">
+                        <input type="hidden" value="{{p.publisher}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                 </td>
             </tr>
@@ -23,10 +29,11 @@
     </table>
 
     <p>Add publisher:</p>
-    <table class="table table-striped">
+    <table class="table formula">
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +44,6 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+    </table>
 </div>
 {% endblock content %}

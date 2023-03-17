@@ -8,7 +8,7 @@ def select_Volumes():
     sql = """
     SELECT Volumes.name, Volumes.series_year, entry
     FROM Volumes
-    ORDER BY Volumes.name ASC
+    ORDER BY Volumes.name, Volumes.series_year, entry ASC
     """
     cursor.execute(sql)
     results = cursor.fetchall()

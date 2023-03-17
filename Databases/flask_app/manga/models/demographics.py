@@ -3,13 +3,13 @@ from psycopg2 import sql
 
 from manga.models.classes import Demographic
 
-def add_Demographic(demographic):
+def add_Demographic(demographic, description):
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
-    INSERT INTO Demographics(demo)
-    VALUES (%s)
+    INSERT INTO Demographics(demo, description)
+    VALUES (%s, %s)
     """)
-    cursor.execute(user_sql, (demographic,))
+    cursor.execute(user_sql, (demographic, description))
     connection.commit()
     cursor.close()
 
@@ -26,8 +26,12 @@ def delete_Demographic(demographic):
 def select_Demographics():
     cursor = connection.cursor()
     sql = """
-    SELECT demo, description FROM Demographics
-    ORDER BY demo ASC
+    SELECT Demographics.demo, description, COUNT(series)
+    FROM Demographics
+    LEFT JOIN Demographic_Of
+        ON Demographics.demo=Demographic_Of.demo
+    GROUP BY (Demographics.demo)
+    ORDER BY Demographics.demo ASC
     """
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -41,7 +45,7 @@ def connect_Demographic(series, series_year, demo):
     if series == "" or series_year == "" or demo == "":
         return
     if check_Demographic_Exists(demo) == False:
-        add_Demographic(demo)
+        add_Demographic(demo, "")
 
     cursor = connection.cursor()
     user_sql = sql.SQL ("""
@@ -74,3 +78,14 @@ def check_Demographic_Exists(demographic):
     result = cursor.fetchone()
     cursor.close()
     return (result != None)
+
+def update_Demographic(key, data):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Demographics
+    SET demo=%s, description=%s
+    WHERE demo=%s
+    """)
+    cursor.execute(user_sql, (data[0], data[1], key))
+    connection.commit()
+    cursor.close()

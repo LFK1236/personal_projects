@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, Blueprint, request
-from manga.models.publishers import select_Publishers, add_Publisher, delete_Publisher
+from manga.models.publishers import select_Publishers, add_Publisher, delete_Publisher, update_Publisher
 
 Publishers = Blueprint('Publishers', __name__)
 
@@ -16,6 +16,14 @@ def add():
 
 @Publishers.route('/publishers/delete', methods=['POST'])
 def delete():
-    publisher = request.form['publisher']
+    publisher = request.form['key']
     delete_Publisher(publisher)
+    return redirect('/publishers')
+
+@Publishers.route('/publishers/edit', methods=['GET', 'POST'])
+def edit():
+    if request.method == 'POST':
+        key = request.form['key']
+        data = request.form['publisher']
+        update_Publisher(key, data)
     return redirect('/publishers')

@@ -1,5 +1,6 @@
 from manga import connection
 from psycopg2 import sql
+from manga.models.classes import Language
 
 def add_Language(language):
     cursor = connection.cursor()
@@ -24,7 +25,10 @@ def delete_Language(language):
 def select_Languages():
     cursor = connection.cursor()
     sql = """
-    SELECT language FROM Languages
+    SELECT Languages.language, COUNT(series) FROM Languages
+    LEFT JOIN Language_Of
+        ON Languages.language=Language_Of.language
+    GROUP BY (Languages.language)
     ORDER BY language ASC
     """
     cursor.execute(sql)
@@ -32,7 +36,7 @@ def select_Languages():
     cursor.close()
     languages = []
     for language in results:
-        languages.append(language[0])
+        languages.append(Language(language))
     return languages
 
 def connect_Language(series, series_year, language):
@@ -73,3 +77,14 @@ def check_Language_Exists(language):
     result = cursor.fetchone()
     cursor.close()
     return (result != None)
+
+def update_Language(key, new):
+    cursor = connection.cursor()
+    user_sql = sql.SQL ("""
+    UPDATE Languages
+    SET language=%s
+    WHERE language=%s
+    """)
+    cursor.execute(user_sql, (new, key))
+    connection.commit()
+    cursor.close()

@@ -111,3 +111,11 @@ CREATE TABLE IF NOT EXISTS Publisher_Of(
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE SEQUENCE User_ID_seq;
+
+CREATE TABLE IF NOT EXISTS Settings(
+    id integer DEFAULT nextval('User_ID_seq') PRIMARY KEY,
+    sort_category varchar(120) NOT NULL DEFAULT 'name, series_year',
+    sort_direction char(3) NOT NULL DEFAULT 'ASC'
+)

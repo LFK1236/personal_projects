@@ -1,24 +1,27 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Authors:</p>
-    <table class="table table-striped">
+    <table class="table list">
         <thead>
             <tr>
                 <th scope="col">Author</th>
+                <th scope="col">Series</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {% for a in authors %}
             <tr>
-                <td>{{a.name}}</td>
                 <td>
-                    <form action="/authors/details/{{a.name}}" method="post">
-                        <input type="submit" value="...">
-                    </form>
-                    <form action="/authors/delete" method="post">
-                        <input type="hidden" value="{{a.name}}" name="name">
-                        <input type="submit" value="X">
+                    <a href="/series/filter/author:{{a.author}}">{{a.author}}</a></td>
+                <td>{{a.series_count}}</td>
+                <td>
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Authors" name="table">
+                        <input type="hidden" value="{{a[0]}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                 </td>
             </tr>
@@ -27,10 +30,11 @@
     </table>
 
     <p>Add author:</p>
-    <table class="table table-striped">
+    <table class="table formula">
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +46,5 @@
         </form>
         </tbody>
     </table>
-
-
-    <br><br><a href="/series">See series</a><br><a href="/">Back to splash page</a>
 </div>
 {% endblock content %}

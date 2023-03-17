@@ -1,20 +1,26 @@
 {% extends "basic_layout.html" %}
 {% block content %}
 <div class="content-section">
+    {% include "header.html" %}
     <p>Languages:</p>
-    <table class="table table-striped">
+    <table class="table list">
+        <thead>
+            <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Series</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
         <tbody>
             {% for l in languages %}
             <tr>
-                <td>{{l}}</td>
+                <td><a href="/series/filter/language:{{l.language}}">{{l.language}}</a></td>
+                <td>{{l.series_count}}</td>
                 <td>
-                    <form action="/series/language:{{l}}" method="post">
-                        <input type="hidden" value="{{l}}" name="language">
-                        <input type="submit" value="See series">
-                    </form>
-                    <form action="/languages/delete" method="post">
-                        <input type="hidden" value="{{l}}" name="language">
-                        <input type="submit" value="X">
+                    <form action="/edit" method="post">
+                        <input type="hidden" value="Languages" name="table">
+                        <input type="hidden" value="{{l.language}}" name="data">
+                        <input type="submit" value="Edit">
                     </form>
                 </td>
             </tr>
@@ -23,10 +29,11 @@
     </table>
 
     <p>Add language:</p>
-    <table class="table table-striped">
+    <table class="table formula">
         <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +44,6 @@
             </tr>
         </form>
         </tbody>
-        </table>
-
-    <br><br><a href="/series">See all series</a><br><a href="/">Back to splash page</a>
+    </table>
 </div>
 {% endblock content %}
