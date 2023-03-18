@@ -8,5 +8,7 @@ namespace Game_Database.Models
         public string? Title { get; set; }
         [Required]
         public string? Release { get; set; }
+
+        public int Rating { get; set; }
     }
 }
