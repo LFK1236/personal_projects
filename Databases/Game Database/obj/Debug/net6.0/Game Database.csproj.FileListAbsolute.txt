@@ -1,0 +1,31 @@
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\appsettings.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.staticwebassets.runtime.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.exe
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.deps.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.runtimeconfig.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.dll
+C:\Users\louis\repos\personal_projects\Databases\Game Database\bin\Debug\net6.0\Game Database.pdb
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.csproj.AssemblyReference.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.AssemblyInfoInputs.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.AssemblyInfo.cs
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.csproj.CoreCompileInputs.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.RazorAssemblyInfo.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.RazorAssemblyInfo.cs
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets\msbuild.Game Database.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets\msbuild.build.Game Database.props
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Game Database.props
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Game Database.props
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\scopedcss\bundle\Game Database.styles.css
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\scopedcss\projectbundle\Game Database.bundle.scp.css
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.dll
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\refint\Game Database.dll
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.pdb
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\Game Database.genruntimeconfig.cache
+C:\Users\louis\repos\personal_projects\Databases\Game Database\obj\Debug\net6.0\ref\Game Database.dll

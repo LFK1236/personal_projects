@@ -1,0 +1,33 @@
+﻿@page
+@using Game_Database.Pages
+@model Game_Database.Pages.CollectionModel
+@{
+    ViewData["Title"] = "Game Collection";
+}
+
+<head>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Release</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var g in Model.games)
+            {
+            <tr>
+                <td>@g.Title</td>
+                <td>@g.Release</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
