@@ -16,8 +16,8 @@
         <div class="form-group mb-0 align-middle">
             <label asp-for="NewGame.Title">Title<span style="color:red">*</span></label>
             <input type="text" asp-for="NewGame.Title" class="mr-5" />
-            <label asp-for="NewGame.Release">Release Year<span style="color:red">*</span></label>
-            <input asp-for="NewGame.Release" class="mr-5" />
+            <label asp-for="NewGame.Release_year">Release Year<span style="color:red">*</span></label>
+            <input asp-for="NewGame.Release_year" class="mr-5" />
             <button class="btn btn-primary">Add</button>
         </div>
     </form>
@@ -34,9 +34,9 @@
             {
             <tr>
                 <td>@g.Title</td>
-                <td>@g.Release</td>
+                <td>@g.Release_year</td>
                 <td>
-                    <form method="post" asp-page-handler="Delete" asp-route-title="@g.Title" asp-route-release_year="@g.Release">
+                    <form method="post" asp-page-handler="Delete" asp-route-title="@g.Title" asp-route-release_year="@g.Release_year">
                         <button class="btn btn-danger">Delete</button>
                     </form>
                 </td>
