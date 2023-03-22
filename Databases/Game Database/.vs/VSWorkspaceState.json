@@ -3,9 +3,10 @@
     "",
     "\\Models",
     "\\Pages",
+    "\\Pages\\Games",
     "\\Pages\\Shared",
     "\\Services"
   ],
-  "SelectedNode": "\\Pages\\Collection.cshtml",
+  "SelectedNode": "\\Pages\\Games",
   "PreviewInSolutionExplorer": false
 }
