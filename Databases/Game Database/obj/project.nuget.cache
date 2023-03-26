@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5Z60PMoiTJwRA3+YIJ+tN7lqeEaW3fa3U6bO8cQ+VEIrpgKXbT/ryRvlA1CFdrRiPCx5sOJ+CJOC7NgrV3As7w==",
+  "dgSpecHash": "dXoQMAD49hugrY0gmYhBAILkNSVRJLz/5XKtLfNYrCrNAQWqzSH3abdYHd+ky/Y7srobKwaGwabF3+x0waF5ww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\Game Database.csproj",
+  "projectFilePath": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\GameDatabase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\louis\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\louis\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

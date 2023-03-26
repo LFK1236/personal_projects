@@ -10929,9 +10929,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\Game Database.csproj",
-      "projectName": "Game Database",
-      "projectPath": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\Game Database.csproj",
+      "projectUniqueName": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\GameDatabase.csproj",
+      "projectName": "GameDatabase",
+      "projectPath": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\GameDatabase.csproj",
       "packagesPath": "C:\\Users\\louis\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\louis\\repos\\personal_projects\\Databases\\Game Database\\obj\\",
       "projectStyle": "PackageReference",

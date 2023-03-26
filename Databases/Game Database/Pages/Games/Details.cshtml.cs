@@ -12,14 +12,14 @@ namespace GameDatabase.Pages.Games
 {
     public class DetailsModel : PageModel
     {
-        private readonly GameDatabase.Data.GameDatabaseContext _context;
+        private readonly GameDatabaseContext _context;
 
-        public DetailsModel(GameDatabase.Data.GameDatabaseContext context)
+        public DetailsModel(GameDatabaseContext context)
         {
             _context = context;
         }
 
-      public Game Game { get; set; } = default!; 
+        public Game Game { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +33,7 @@ namespace GameDatabase.Pages.Games
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Game = game;
             }

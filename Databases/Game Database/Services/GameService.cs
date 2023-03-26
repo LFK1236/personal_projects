@@ -1,6 +1,4 @@
 ﻿using GameDatabase.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GameDatabase.Services
 {
@@ -11,18 +9,18 @@ namespace GameDatabase.Services
         {
             Games = new List<Game>
             {
-                new Game { Title = "Star Wars Jedi: Fallen Order", ReleaseYear = "2019" },
-                new Game { Title = "Kena: Bridge of Spirits", ReleaseYear = "2021" }
+                new Game ("Star Wars Jedi: Fallen Order", 2019),
+                new Game ("Kena: Bridge of Spirits", 2021)
             };
         }
 
         public static List<Game> GetAll() => Games;
 
-        public static Game? Get(string title, string release) => Games.FirstOrDefault(g => (g.Title == title) && (g.ReleaseYear == release));
+        public static Game? Get(string title, int release) => Games.FirstOrDefault(g => g.Title == title && g.ReleaseYear == release);
 
         public static void Add(Game game) => Games.Add(game);
 
-        public static void Delete(string title, string release)
+        public static void Delete(string title, int release)
         {
             var game = Get(title, release);
             if (game is null)

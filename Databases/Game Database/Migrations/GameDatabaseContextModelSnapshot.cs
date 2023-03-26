@@ -3,7 +3,6 @@ using GameDatabase.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,11 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameDatabase.Migrations
 {
     [DbContext(typeof(GameDatabaseContext))]
-    [Migration("20230320235712_InitialCreate")]
-    partial class InitialCreate
+    partial class GameDatabaseContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +21,7 @@ namespace GameDatabase.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Game_Database.Models.Game", b =>
+            modelBuilder.Entity("GameDatabase.Models.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,12 +29,27 @@ namespace GameDatabase.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Developer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Platform")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Release_year")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

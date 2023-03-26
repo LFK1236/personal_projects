@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using GameDatabase.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using GameDatabase.Data;
+using GameDatabase.Models;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace GameDatabase.Pages.Games
 {
     public class IndexModel : PageModel
     {
-        private readonly GameDatabase.Data.GameDatabaseContext _context;
+        private readonly GameDatabaseContext _context;
 
-        public IndexModel(GameDatabase.Data.GameDatabaseContext context)
+        public IndexModel(GameDatabaseContext context)
         {
             _context = context;
         }
 
-        public IList<Game> GameList { get;set; } = default!;
+        public IList<Game> GameList { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? TitleSearchString { get; set; }
@@ -32,43 +34,125 @@ namespace GameDatabase.Pages.Games
         [BindProperty(SupportsGet = true)]
         public string? RatingSearchString { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string? PlatformSearchString { get; set; }
+
         public SelectList? Genres { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string ? GameGenre { get; set; }
+        public string? GameGenre { get; set; }
 
         public async Task OnGetAsync()
         {
             if (_context.Game != null)
             {
                 var games = from g in _context.Game
-                    select g;
+                            select g;
 
                 IQueryable<string> releaseQuery = from g in _context.Game
-                    orderby g.Genre
-                    select g.Genre;
+                                                        orderby g.Genre
+                                                        select g.Genre;
 
                 if (!string.IsNullOrEmpty(TitleSearchString))
-                    games = games.Where(s => s.Title.Contains(TitleSearchString));
+                    games = games.Where(g => g.Title.Contains(TitleSearchString));
 
                 if (!string.IsNullOrEmpty(DeveloperSearchString))
-                    games = games.Where(s => s.Developer.Contains(DeveloperSearchString));
+                    games = games.Where(g => g.Developer.Contains(DeveloperSearchString));
 
                 if (!string.IsNullOrEmpty(PublisherSearchString))
-                    games = games.Where(s => s.Publisher.Contains(PublisherSearchString));
+                    games = games.Where(g => g.Publisher.Contains(PublisherSearchString));
 
                 if (!string.IsNullOrEmpty(ReleaseYearSearchString))
-                    games = games.Where(s => s.ReleaseYear.Contains(ReleaseYearSearchString));
+                    games = games.Where(g => g.ReleaseYear.Equals(ReleaseYearSearchString));
 
                 if (!string.IsNullOrEmpty(RatingSearchString))
-                    games = games.Where(s => s.Rating.Equals(RatingSearchString));
+                    games = games.Where(g => g.Rating.Equals(RatingSearchString));
+
+                if (!string.IsNullOrEmpty(PlatformSearchString))
+                    games = games.Where(g => g.Platform.Contains(PlatformSearchString));
 
                 if (!string.IsNullOrEmpty(GameGenre))
-                    games = games.Where(x => x.Genre == GameGenre);
+                    games = games.Where(g => g.Genre.Contains(GameGenre));
+
+                var SortCategory = Settings.SortCategory;
+                var SortDirection = Settings.SortDirection;
+                if (SortDirection == Settings.SortDirections.Asc)
+                {
+                    switch (SortCategory)
+                    {
+                        case Settings.SortCategories.ReleaseYear:
+                            games = games.OrderBy(g => g.ReleaseYear);
+                            break;
+                        case Settings.SortCategories.Genre:
+                            games = games.OrderBy(g => g.Genre);
+                            break;
+                        case Settings.SortCategories.Developer:
+                            games = games.OrderBy(g => g.Developer);
+                            break;
+                        case Settings.SortCategories.Publisher:
+                            games = games.OrderBy(g => g.Publisher);
+                            break;
+                        case Settings.SortCategories.Platform:
+                            games = games.OrderBy(g => g.Platform);
+                            break;
+                        case Settings.SortCategories.Rating:
+                            games = games.OrderBy(g => g.Rating);
+                            break;
+                        default:
+                            games = games.OrderBy(g => g.Title);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (SortCategory)
+                    {
+                        case Settings.SortCategories.ReleaseYear:
+                            games = games.OrderByDescending(g => g.ReleaseYear);
+                            break;
+                        case Settings.SortCategories.Genre:
+                            games = games.OrderByDescending(g => g.Genre);
+                            break;
+                        case Settings.SortCategories.Developer:
+                            games = games.OrderByDescending(g => g.Developer);
+                            break;
+                        case Settings.SortCategories.Publisher:
+                            games = games.OrderByDescending(g => g.Publisher);
+                            break;
+                        case Settings.SortCategories.Platform:
+                            games = games.OrderByDescending(g => g.Platform);
+                            break;
+                        case Settings.SortCategories.Rating:
+                            games = games.OrderByDescending(g => g.Rating);
+                            break;
+                        default:
+                            games = games.OrderByDescending(g => g.Title);
+                            break;
+                    }
+                }
 
                 GameList = await games.ToListAsync();
                 Genres = new SelectList(await releaseQuery.Distinct().ToListAsync());
             }
+        }
+        
+        
+        // Sort
+        public async Task<IActionResult> OnGetSort(Settings.SortCategories category)
+        {            
+            if (category == Settings.SortCategory)
+            {
+                if (Settings.SortDirection == Settings.SortDirections.Asc)
+                    Settings.SortDirection = Settings.SortDirections.Des;
+                else
+                    Settings.SortDirection = Settings.SortDirections.Asc;
+            }
+            else
+            {
+                Settings.SortCategory = category;
+            }
+            
+            return RedirectToPage("./Index");
         }
     }
 }

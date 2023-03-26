@@ -13,9 +13,9 @@ namespace GameDatabase.Pages.Games
 {
     public class EditModel : PageModel
     {
-        private readonly GameDatabase.Data.GameDatabaseContext _context;
+        private readonly GameDatabaseContext _context;
 
-        public EditModel(GameDatabase.Data.GameDatabaseContext context)
+        public EditModel(GameDatabaseContext context)
         {
             _context = context;
         }
@@ -30,7 +30,7 @@ namespace GameDatabase.Pages.Games
                 return NotFound();
             }
 
-            var game =  await _context.Game.FirstOrDefaultAsync(m => m.Id == id);
+            var game = await _context.Game.FirstOrDefaultAsync(m => m.Id == id);
             if (game == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace GameDatabase.Pages.Games
 
         private bool GameExists(int id)
         {
-          return (_context.Game?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Game?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using GameDatabase.Data;
 using GameDatabase.Models;
 
@@ -8,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<GameDatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Game_DatabaseContext")
-    ?? throw new InvalidOperationException("Connection string 'Game_DatabaseContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GameDatabaseContext")
+    ?? throw new InvalidOperationException("Connection string 'GameDatabaseContext' not found.")));
 
 var app = builder.Build();
 

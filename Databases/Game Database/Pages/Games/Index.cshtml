@@ -1,5 +1,6 @@
 ﻿@page
-@model GameDatabase.Pages.Games.IndexModel
+@using GameDatabase.Models
+@model IndexModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -29,58 +30,81 @@
                     @Html.DisplayNameFor(model => model.GameList[0].Publisher)
             </th>
             <th>
+                    @Html.DisplayNameFor(model => model.GameList[0].Platform)
+            </th>
+            <th>
                     @Html.DisplayNameFor(model => model.GameList[0].Rating)
             </th>
             <th></th>
         </tr>
     </thead>
- <tbody>
+    <tbody>
         <td>
-        <input type="text" asp-for="TitleSearchString" />
+            <input type="text" asp-for="TitleSearchString" />
         </td>
         <td>
-        <input type="text" class="narrow" asp-for="ReleaseYearSearchString" />
+            <input type="text" class="narrow" asp-for="ReleaseYearSearchString" />
         </td>
         <td>
-        <select asp-for="GameGenre" asp-items="Model.Genres">
-            <option value="">All</option>
-        </select>
+            <select asp-for="GameGenre" asp-items="Model.Genres">
+                <option value="">All</option>
+            </select>
         </td>
         <td>
-        <input type="text" asp-for="DeveloperSearchString" />
+            <input type="text" asp-for="DeveloperSearchString" />
         </td>
         <td>
-        <input type="text" asp-for="PublisherSearchString" />
+            <input type="text" asp-for="PublisherSearchString" />
+        </td>
+        <td>
+            <input type="text" asp-for="PlatformSearchString" />
         </td>
         <td>
             <input type="number" class="narrow" asp-for="RatingSearchString" />
         </td>
         <td>
-        <input type="submit" value="Filter" />
+            <input type="submit" value="Filter" />
         </td>
- </tbody>
+    </tbody>
 </table>
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Title">
                 @Html.DisplayNameFor(model => model.GameList[0].Title)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameList[0].ReleaseYear)
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.ReleaseYear">
+                    @Html.DisplayNameFor(model => model.GameList[0].ReleaseYear)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameList[0].Genre)
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Genre">
+                    @Html.DisplayNameFor(model => model.GameList[0].Genre)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameList[0].Developer)
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Developer">
+                    @Html.DisplayNameFor(model => model.GameList[0].Developer)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameList[0].Publisher)
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Publisher">
+                    @Html.DisplayNameFor(model => model.GameList[0].Publisher)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameList[0].Rating)
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Platform">
+                    @Html.DisplayNameFor(model => model.GameList[0].Platform)
+                </a>
+            </th>
+            <th>
+                <a asp-page-handler="Sort" asp-route-category="@Settings.SortCategories.Rating">
+                    @Html.DisplayNameFor(model => model.GameList[0].Rating)
+                </a>
             </th>
             <th></th>
         </tr>
@@ -102,6 +126,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Platform)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)

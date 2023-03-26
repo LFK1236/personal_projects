@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:Game_DatabaseContext"
+      "connectionId": "ConnectionStrings:GameDatabaseContext"
     }
   }
 }

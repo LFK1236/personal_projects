@@ -12,15 +12,15 @@ namespace GameDatabase.Pages.Games
 {
     public class DeleteModel : PageModel
     {
-        private readonly GameDatabase.Data.GameDatabaseContext _context;
+        private readonly GameDatabaseContext _context;
 
-        public DeleteModel(GameDatabase.Data.GameDatabaseContext context)
+        public DeleteModel(GameDatabaseContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-      public Game Game { get; set; } = default!;
+        public Game Game { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,7 +35,7 @@ namespace GameDatabase.Pages.Games
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Game = game;
             }
