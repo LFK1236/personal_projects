@@ -5,12 +5,20 @@ namespace GameDatabase.Services
     public static class GameService
     {
         static List<Game> Games { get; }
+        static List<Tag> Tags { get; set; }
         static GameService()
         {
             Games = new List<Game>
             {
                 new Game ("Star Wars Jedi: Fallen Order", 2019),
                 new Game ("Kena: Bridge of Spirits", 2021)
+            };
+            Tags = new List<Tag>
+            {
+                new Tag("First Person"),
+                new Tag("Third Person"),
+                new Tag("Singleplayer"),
+                new Tag("Multiplayer")
             };
         }
 

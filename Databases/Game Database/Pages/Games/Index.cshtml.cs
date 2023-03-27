@@ -132,6 +132,14 @@ namespace GameDatabase.Pages.Games
                 }
 
                 GameList = await games.ToListAsync();
+                /*
+                var GameDisplays = new List<GameDisplay>(); 
+                foreach (Game g in GameList)
+                {
+                    GameDisplays.Add(new GameDisplay(g));
+                };
+                */
+
                 Genres = new SelectList(await releaseQuery.Distinct().ToListAsync());
             }
         }
