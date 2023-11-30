@@ -1,8 +1,9 @@
-=== Game Database ===
+# Game Database
 
 A self-hosted web application for managing a database of videogames owned by the user.\
 Currently mostly an exercise in ~~frustration~~ following Microsoft's Razor Pages tutorials and trying to
-understand how to work with databases in this context.\
+understand how to work with databases in this context. Feels pretty limiting to use object instances
+as a way to represent relations in a databse.\
 \
 Uses the ASP.NET Core web framework.\
 \
