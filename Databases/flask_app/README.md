@@ -2,7 +2,7 @@
 
 ## Background
 Got bronchitis, made this.
-It's a Flask web app which provides a UI for managing a PostgreSQL database of manga (or really any type of comic book). Excel can work for this purpose, but I find it lacking in a few areas. It cannot compete with actual database software.
+It's a Flask web app which provides a UI for managing a PostgreSQL database of manga/comic books. Excel can work for this purpose, but I find it lacking in a few areas, making it unable to compare to actual database software... like this app!
 It has a rudimentary search function and a plain but pretty enough UI.
 
 ## Running it yourself
